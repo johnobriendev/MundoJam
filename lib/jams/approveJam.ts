@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { sendEmail } from '@/lib/email/sender'
 import { jamApprovedTemplate } from '@/lib/email/templates'
+import { generateOccurrences } from '@/lib/occurrences/generateOccurrences'
 
 export async function approveJam(jamId: string, adminId: string) {
   const jam = await prisma.jam.update({
@@ -8,6 +9,8 @@ export async function approveJam(jamId: string, adminId: string) {
     data: { status: 'APPROVED' },
     include: { host: true },
   })
+
+  await generateOccurrences()
 
   await prisma.adminAction.create({
     data: {

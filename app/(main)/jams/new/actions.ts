@@ -21,6 +21,7 @@ const jamSchema = z.object({
     error: 'Select a recurrence type',
   }),
   startDate: z.string().min(1, 'Start date is required'),
+  endTime: z.string().optional(),
   endDate: z.string().optional(),
   genres: z.array(z.string().min(1)).min(1, 'Select at least one genre'),
   instruments: z.array(z.string().min(1)),
@@ -51,13 +52,22 @@ export async function submitJam(
     return { errors: { _form: ['Invalid form data — please try again'] } }
   }
 
+  const startDateStr = formData.get('startDate') as string
+  const startTimeStr = formData.get('startTime') as string
+  const endTimeStr = formData.get('endTime') as string
+  const startDateCombined =
+    startDateStr && startTimeStr ? `${startDateStr}T${startTimeStr}` : ''
+  const endTimeCombined =
+    startDateStr && endTimeStr ? `${startDateStr}T${endTimeStr}` : undefined
+
   const validated = jamSchema.safeParse({
     title: formData.get('title'),
     description: formData.get('description'),
     address: formData.get('address'),
     city: formData.get('city'),
     recurrenceType: formData.get('recurrenceType'),
-    startDate: formData.get('startDate'),
+    startDate: startDateCombined,
+    endTime: endTimeCombined,
     endDate: (formData.get('endDate') as string) || undefined,
     genres,
     instruments,
@@ -69,7 +79,7 @@ export async function submitJam(
     return { errors: validated.error.flatten().fieldErrors as Record<string, string[]> }
   }
 
-  const { title, description, address, city, recurrenceType, startDate, endDate, resubmittedFromId } =
+  const { title, description, address, city, recurrenceType, startDate, endTime, endDate, resubmittedFromId } =
     validated.data
 
   let coverImageUrl: string | undefined
@@ -98,6 +108,7 @@ export async function submitJam(
     equipment: validated.data.equipment,
     recurrenceType,
     startDate: new Date(startDate),
+    endTime: endTime ? new Date(endTime) : undefined,
     endDate: endDate ? new Date(endDate) : undefined,
     resubmittedFromId,
   })

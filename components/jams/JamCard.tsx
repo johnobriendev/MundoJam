@@ -20,6 +20,7 @@ export default function JamCard({ occurrence }: { occurrence: JamOccurrenceWithJ
         <div className="min-w-0">
           <p className="text-xs text-indigo-600 font-medium mb-0.5">
             {format(occurrence.date, 'EEE, MMM d, yyyy · h:mm a')}
+            {jam.endTime && ` – ${format(jam.endTime, 'h:mm a')}`}
           </p>
           <h3 className="font-semibold text-gray-900 truncate">{jam.title}</h3>
           <p className="text-sm text-gray-500 mt-0.5">

@@ -52,14 +52,14 @@ export default function JamFilters() {
     city
 
   const chipClass = (active: boolean) =>
-    `text-xs rounded-full px-2 py-0.5 border transition-colors cursor-pointer ${
+    `text-xs rounded-full px-1.5 py-0.5 border transition-colors cursor-pointer ${
       active
         ? 'bg-indigo-600 text-white border-indigo-600'
         : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300'
     }`
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 space-y-4">
+    <div className="rounded-lg border border-gray-200 bg-white p-3 space-y-3">
       <div className="flex items-center justify-between">
         <span className="text-sm font-semibold text-gray-900">Filters</span>
         {hasFilters && (
@@ -79,7 +79,7 @@ export default function JamFilters() {
           type="text"
           defaultValue={city}
           placeholder="e.g. Austin"
-          className="w-full border border-gray-200 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          className="w-full border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
           onBlur={(e) => push({ city: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === 'Enter') push({ city: (e.target as HTMLInputElement).value })
@@ -93,7 +93,7 @@ export default function JamFilters() {
         <select
           value={recurrence}
           onChange={(e) => push({ recurrence: e.target.value })}
-          className="w-full border border-gray-200 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          className="w-full border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
         >
           <option value="">Any</option>
           <option value="ONE_TIME">One-time</option>
@@ -110,7 +110,7 @@ export default function JamFilters() {
             type="date"
             value={dateFrom}
             onChange={(e) => push({ dateFrom: e.target.value })}
-            className="w-full border border-gray-200 rounded-md px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400"
+            className="w-full border border-gray-200 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
           />
         </div>
         <div>
@@ -119,7 +119,7 @@ export default function JamFilters() {
             type="date"
             value={dateTo}
             onChange={(e) => push({ dateTo: e.target.value })}
-            className="w-full border border-gray-200 rounded-md px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400"
+            className="w-full border border-gray-200 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
           />
         </div>
       </div>
@@ -129,7 +129,7 @@ export default function JamFilters() {
         <summary className="text-xs font-medium text-gray-700 cursor-pointer select-none">
           Genre{genres.length > 0 ? ` (${genres.length})` : ''}
         </summary>
-        <div className="mt-2 flex flex-wrap gap-1.5">
+        <div className="mt-1.5 flex flex-wrap gap-1">
           {GENRES.map((g) => (
             <button
               key={g}
@@ -148,7 +148,7 @@ export default function JamFilters() {
         <summary className="text-xs font-medium text-gray-700 cursor-pointer select-none">
           Instruments needed{instruments.length > 0 ? ` (${instruments.length})` : ''}
         </summary>
-        <div className="mt-2 flex flex-wrap gap-1.5">
+        <div className="mt-1.5 flex flex-wrap gap-1">
           {INSTRUMENTS.map((i) => (
             <button
               key={i}
@@ -167,7 +167,7 @@ export default function JamFilters() {
         <summary className="text-xs font-medium text-gray-700 cursor-pointer select-none">
           Equipment provided{equipment.length > 0 ? ` (${equipment.length})` : ''}
         </summary>
-        <div className="mt-2 flex flex-wrap gap-1.5">
+        <div className="mt-1.5 flex flex-wrap gap-1">
           {EQUIPMENT.map((e) => (
             <button
               key={e}

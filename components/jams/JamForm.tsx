@@ -21,6 +21,7 @@ export interface JamFormInitialValues {
   equipment?: EquipmentEntry[]
   recurrenceType?: 'ONE_TIME' | 'WEEKLY' | 'MONTHLY'
   startDate?: string
+  endTime?: string
   endDate?: string
   resubmittedFromId?: string
 }
@@ -407,20 +408,52 @@ export function JamForm({ initialValues }: { initialValues?: JamFormInitialValue
         )}
       </div>
 
-      {/* Start date */}
+      {/* Start date + time */}
       <div>
-        <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1">
+        <p className="block text-sm font-medium text-gray-700 mb-3">
           {recurrenceType === 'ONE_TIME' ? 'Date & time' : 'First occurrence'}{' '}
           <span className="text-red-500">*</span>
-        </label>
-        <input
-          id="startDate"
-          name="startDate"
-          type="datetime-local"
-          required
-          defaultValue={initialValues?.startDate}
-          className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
+        </p>
+        <div className="grid grid-cols-3 gap-4 max-w-lg">
+          <div>
+            <label htmlFor="startDate" className="block text-xs font-medium text-gray-500 mb-1">
+              Date
+            </label>
+            <input
+              id="startDate"
+              name="startDate"
+              type="date"
+              required
+              defaultValue={initialValues?.startDate?.slice(0, 10)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="startTime" className="block text-xs font-medium text-gray-500 mb-1">
+              Start time
+            </label>
+            <input
+              id="startTime"
+              name="startTime"
+              type="time"
+              required
+              defaultValue={initialValues?.startDate?.slice(11, 16)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="endTime" className="block text-xs font-medium text-gray-500 mb-1">
+              End time <span className="text-gray-400 font-normal">(optional)</span>
+            </label>
+            <input
+              id="endTime"
+              name="endTime"
+              type="time"
+              defaultValue={initialValues?.endTime}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+        </div>
         {fieldError(errors, 'startDate') && (
           <p className="text-xs text-red-600 mt-1">{fieldError(errors, 'startDate')}</p>
         )}

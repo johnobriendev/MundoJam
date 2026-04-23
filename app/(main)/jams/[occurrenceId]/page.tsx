@@ -40,6 +40,7 @@ export default async function OccurrencePage({
       <div>
         <p className="text-sm text-indigo-600 font-medium">
           {format(occurrence.date, 'EEEE, MMMM d, yyyy · h:mm a')}
+          {jam.endTime && ` – ${format(jam.endTime, 'h:mm a')}`}
         </p>
         <h1 className="text-2xl font-bold text-gray-900 mt-1">{jam.title}</h1>
         <p className="text-sm text-gray-500 mt-1">

@@ -19,6 +19,7 @@ export interface CreateJamInput {
   equipment: EquipmentItem[]
   recurrenceType: 'ONE_TIME' | 'WEEKLY' | 'MONTHLY'
   startDate: Date
+  endTime?: Date
   endDate?: Date
   resubmittedFromId?: string
 }
@@ -36,6 +37,7 @@ export async function createJam(input: CreateJamInput) {
       lng: input.lng,
       recurrenceType: input.recurrenceType,
       startDate: input.startDate,
+      endTime: input.endTime,
       endDate: input.endDate,
       status: 'PENDING',
       resubmittedFromId: input.resubmittedFromId,

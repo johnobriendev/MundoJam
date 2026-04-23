@@ -30,6 +30,7 @@ export default async function NewJamPage({
         equipment: jam.equipment.map((e) => ({ item: e.item, notes: e.notes ?? '' })),
         recurrenceType: jam.recurrenceType,
         startDate: jam.startDate.toISOString().slice(0, 16),
+        endTime: jam.endTime?.toISOString().slice(11, 16),
         endDate: jam.endDate?.toISOString().slice(0, 10),
         resubmittedFromId: jam.id,
       }

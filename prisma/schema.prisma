@@ -105,6 +105,7 @@ model Jam {
   lng               Float
   recurrenceType    RecurrenceType
   startDate         DateTime
+  endTime           DateTime?
   endDate           DateTime?
   status            JamStatus      @default(PENDING)
   rejectionReason   String?
