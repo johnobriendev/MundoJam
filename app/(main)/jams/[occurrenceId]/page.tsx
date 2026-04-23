@@ -6,6 +6,7 @@ import { getOccurrence } from '@/lib/occurrences/getOccurrence'
 import { getCurrentUser } from '@/lib/session'
 import { RsvpButtons } from '@/components/jams/RsvpButtons'
 import { CommentThread } from '@/components/comments/CommentThread'
+import { ReportButton } from '@/components/jams/ReportButton'
 
 export default async function OccurrencePage({
   params,
@@ -125,6 +126,12 @@ export default async function OccurrencePage({
           currentUserId={user?.id ?? null}
         />
       </div>
+
+      {user && user.id !== jam.host.id && (
+        <div className="flex justify-end pt-2">
+          <ReportButton targetType="JAM" targetId={jam.id} />
+        </div>
+      )}
     </div>
   )
 }
