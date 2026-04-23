@@ -1,0 +1,26 @@
+export const INSTRUMENTS = [
+  'Guitar',
+  'Bass',
+  'Drums',
+  'Keys / Piano',
+  'Vocals',
+  'Saxophone',
+  'Trumpet',
+  'Trombone',
+  'Violin',
+  'Cello',
+  'Harmonica',
+  'Flute',
+  'Clarinet',
+  'Ukulele',
+  'Banjo',
+  'Mandolin',
+  'Pedal Steel',
+  'Synthesizer',
+  'DJ / Turntables',
+  'Percussion',
+  'Harp',
+  'Other',
+] as const
+
+export type Instrument = (typeof INSTRUMENTS)[number]

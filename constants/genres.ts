@@ -1,0 +1,25 @@
+export const GENRES = [
+  'Blues',
+  'Jazz',
+  'Rock',
+  'Funk',
+  'Soul',
+  'R&B',
+  'Country',
+  'Folk',
+  'Bluegrass',
+  'Classical',
+  'Latin',
+  'Reggae',
+  'Hip-Hop',
+  'Electronic',
+  'Metal',
+  'Punk',
+  'Indie',
+  'Pop',
+  'Gospel',
+  'Experimental',
+  'Other',
+] as const
+
+export type Genre = (typeof GENRES)[number]

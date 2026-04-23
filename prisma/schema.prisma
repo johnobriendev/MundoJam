@@ -1,0 +1,253 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  ALL_LEVELS
+}
+
+enum RecurrenceType {
+  ONE_TIME
+  WEEKLY
+  MONTHLY
+}
+
+enum JamStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum RsvpStatus {
+  GOING
+  INTERESTED
+}
+
+enum ReportTargetType {
+  JAM
+  COMMENT
+  USER
+}
+
+enum ReportStatus {
+  OPEN
+  RESOLVED
+}
+
+model User {
+  id             String     @id @default(cuid())
+  email          String     @unique
+  password       String
+  name           String
+  avatarUrl      String?
+  bio            String?
+  city           String?
+  lat            Float?
+  lng            Float?
+  isDiscoverable Boolean    @default(true)
+  role           Role       @default(USER)
+  skillLevel     SkillLevel @default(ALL_LEVELS)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  instruments  UserInstrument[]
+  genres       UserGenre[]
+  hostedJams   Jam[]            @relation("HostedJams")
+  rsvps        Rsvp[]
+  comments     Comment[]
+  followers    Follow[]         @relation("Following")
+  following    Follow[]         @relation("Follower")
+  reports      Report[]         @relation("Reporter")
+  adminActions AdminAction[]
+  accounts     Account[]
+  sessions     Session[]
+}
+
+model UserInstrument {
+  userId     String
+  instrument String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, instrument])
+}
+
+model UserGenre {
+  userId String
+  genre  String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, genre])
+}
+
+model Jam {
+  id                String         @id @default(cuid())
+  title             String
+  description       String
+  coverImageUrl     String?
+  hostId            String
+  address           String
+  city              String
+  lat               Float
+  lng               Float
+  recurrenceType    RecurrenceType
+  startDate         DateTime
+  endDate           DateTime?
+  status            JamStatus      @default(PENDING)
+  rejectionReason   String?
+  resubmittedFromId String?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  host              User            @relation("HostedJams", fields: [hostId], references: [id])
+  genres            JamGenre[]
+  instrumentsNeeded JamInstrument[]
+  equipment         JamEquipment[]
+  occurrences       JamOccurrence[]
+}
+
+model JamGenre {
+  jamId String
+  genre String
+  jam   Jam    @relation(fields: [jamId], references: [id], onDelete: Cascade)
+
+  @@id([jamId, genre])
+}
+
+model JamInstrument {
+  jamId      String
+  instrument String
+  jam        Jam    @relation(fields: [jamId], references: [id], onDelete: Cascade)
+
+  @@id([jamId, instrument])
+}
+
+model JamEquipment {
+  id    String  @id @default(cuid())
+  jamId String
+  item  String
+  notes String?
+  jam   Jam     @relation(fields: [jamId], references: [id], onDelete: Cascade)
+
+  @@unique([jamId, item])
+}
+
+model JamOccurrence {
+  id        String   @id @default(cuid())
+  jamId     String
+  date      DateTime
+  cancelled Boolean  @default(false)
+
+  jam      Jam       @relation(fields: [jamId], references: [id], onDelete: Cascade)
+  rsvps    Rsvp[]
+  comments Comment[]
+
+  @@unique([jamId, date])
+}
+
+model Rsvp {
+  userId       String
+  occurrenceId String
+  status       RsvpStatus
+
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  occurrence JamOccurrence @relation(fields: [occurrenceId], references: [id], onDelete: Cascade)
+
+  @@id([userId, occurrenceId])
+}
+
+model Comment {
+  id           String   @id @default(cuid())
+  userId       String
+  occurrenceId String
+  body         String
+  parentId     String?
+  createdAt    DateTime @default(now())
+
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  occurrence JamOccurrence @relation(fields: [occurrenceId], references: [id], onDelete: Cascade)
+}
+
+model Follow {
+  followerId  String
+  followingId String
+
+  follower  User @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@id([followerId, followingId])
+}
+
+model Report {
+  id         String           @id @default(cuid())
+  reporterId String
+  targetType ReportTargetType
+  targetId   String
+  reason     String
+  status     ReportStatus     @default(OPEN)
+  createdAt  DateTime         @default(now())
+
+  reporter User @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+}
+
+model AdminAction {
+  id         String   @id @default(cuid())
+  adminId    String
+  actionType String
+  targetType String
+  targetId   String
+  note       String?
+  createdAt  DateTime @default(now())
+
+  admin User @relation(fields: [adminId], references: [id])
+}
+
+// NextAuth required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
