@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { getUserWithActivity } from '@/lib/users/getUser'
+import { getCurrentUser } from '@/lib/session'
+import { isFollowing } from '@/lib/users/followUser'
+import { FollowButton } from '@/components/musicians/FollowButton'
 
 const SKILL_LABELS: Record<string, string> = {
   BEGINNER: 'Beginner',
@@ -16,9 +19,12 @@ export default async function MusicianProfilePage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-  const user = await getUserWithActivity(id)
+  const [user, currentUser] = await Promise.all([getUserWithActivity(id), getCurrentUser()])
 
   if (!user) notFound()
+
+  const following =
+    currentUser && currentUser.id !== id ? await isFollowing(currentUser.id, id) : false
 
   const hostedOccurrences = user.hostedJams.flatMap((jam) =>
     jam.occurrences.map((occ) => ({ ...occ, jam })),
@@ -46,8 +52,13 @@ export default async function MusicianProfilePage({
           </div>
         )}
 
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
+        <div className="flex-1">
+          <div className="flex items-center justify-between gap-4">
+            <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
+            {currentUser && currentUser.id !== id && (
+              <FollowButton profileUserId={id} initialIsFollowing={following} />
+            )}
+          </div>
           {user.city && <p className="text-gray-500 mt-0.5">{user.city}</p>}
           <span className="inline-block mt-1 text-xs bg-gray-100 text-gray-600 rounded-full px-2 py-0.5">
             {SKILL_LABELS[user.skillLevel] ?? user.skillLevel}
