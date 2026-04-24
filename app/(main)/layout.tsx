@@ -37,7 +37,7 @@ async function Nav() {
                 href="/profile"
                 className="text-gray-600 hover:text-gray-900 font-medium"
               >
-                {user.name}
+                Profile
               </Link>
               <Link
                 href="/api/auth/signout"

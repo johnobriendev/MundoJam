@@ -3,8 +3,6 @@
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { useCallback } from 'react'
 import { GENRES } from '@/constants/genres'
-import { INSTRUMENTS } from '@/constants/instruments'
-import { EQUIPMENT } from '@/constants/equipment'
 
 export default function JamFilters() {
   const searchParams = useSearchParams()
@@ -12,9 +10,6 @@ export default function JamFilters() {
   const pathname = usePathname()
 
   const genres = searchParams.getAll('genre')
-  const instruments = searchParams.getAll('instrument')
-  const equipment = searchParams.getAll('equipment')
-  const recurrence = searchParams.get('recurrence') ?? ''
   const dateFrom = searchParams.get('dateFrom') ?? ''
   const dateTo = searchParams.get('dateTo') ?? ''
   const city = searchParams.get('city') ?? ''
@@ -44,9 +39,6 @@ export default function JamFilters() {
 
   const hasFilters =
     genres.length > 0 ||
-    instruments.length > 0 ||
-    equipment.length > 0 ||
-    recurrence ||
     dateFrom ||
     dateTo ||
     city
@@ -59,69 +51,42 @@ export default function JamFilters() {
     }`
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-3 space-y-3">
-      <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-gray-900">Filters</span>
-        {hasFilters && (
-          <button
-            onClick={() => router.push(pathname)}
-            className="text-xs text-indigo-600 hover:underline"
-          >
-            Clear all
-          </button>
-        )}
-      </div>
-
-      {/* City */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">City</label>
+    <div className="rounded-lg border border-gray-200 bg-white p-3 space-y-2">
+      <div className="flex items-center gap-2">
         <input
           type="text"
           defaultValue={city}
-          placeholder="e.g. Austin"
-          className="w-full border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          placeholder="Search by city"
+          className="flex-1 border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
           onBlur={(e) => push({ city: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === 'Enter') push({ city: (e.target as HTMLInputElement).value })
           }}
         />
-      </div>
-
-      {/* Recurrence */}
-      <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Frequency</label>
-        <select
-          value={recurrence}
-          onChange={(e) => push({ recurrence: e.target.value })}
-          className="w-full border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
-        >
-          <option value="">Any</option>
-          <option value="ONE_TIME">One-time</option>
-          <option value="WEEKLY">Weekly</option>
-          <option value="MONTHLY">Monthly</option>
-        </select>
+        {hasFilters && (
+          <button
+            onClick={() => router.push(pathname)}
+            className="text-xs text-indigo-600 hover:underline shrink-0"
+          >
+            Clear
+          </button>
+        )}
       </div>
 
       {/* Date range */}
       <div className="grid grid-cols-2 gap-2">
-        <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">From</label>
-          <input
-            type="date"
-            value={dateFrom}
-            onChange={(e) => push({ dateFrom: e.target.value })}
-            className="w-full border border-gray-200 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">To</label>
-          <input
-            type="date"
-            value={dateTo}
-            onChange={(e) => push({ dateTo: e.target.value })}
-            className="w-full border border-gray-200 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
-          />
-        </div>
+        <input
+          type="date"
+          value={dateFrom}
+          onChange={(e) => push({ dateFrom: e.target.value })}
+          className="w-full border border-gray-200 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+        />
+        <input
+          type="date"
+          value={dateTo}
+          onChange={(e) => push({ dateTo: e.target.value })}
+          className="w-full border border-gray-200 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+        />
       </div>
 
       {/* Genres */}
@@ -143,43 +108,6 @@ export default function JamFilters() {
         </div>
       </details>
 
-      {/* Instruments needed */}
-      <details open={instruments.length > 0}>
-        <summary className="text-xs font-medium text-gray-700 cursor-pointer select-none">
-          Instruments needed{instruments.length > 0 ? ` (${instruments.length})` : ''}
-        </summary>
-        <div className="mt-1.5 flex flex-wrap gap-1">
-          {INSTRUMENTS.map((i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => toggleMulti('instrument', i, instruments)}
-              className={chipClass(instruments.includes(i))}
-            >
-              {i}
-            </button>
-          ))}
-        </div>
-      </details>
-
-      {/* Equipment provided */}
-      <details open={equipment.length > 0}>
-        <summary className="text-xs font-medium text-gray-700 cursor-pointer select-none">
-          Equipment provided{equipment.length > 0 ? ` (${equipment.length})` : ''}
-        </summary>
-        <div className="mt-1.5 flex flex-wrap gap-1">
-          {EQUIPMENT.map((e) => (
-            <button
-              key={e}
-              type="button"
-              onClick={() => toggleMulti('equipment', e, equipment)}
-              className={chipClass(equipment.includes(e))}
-            >
-              {e}
-            </button>
-          ))}
-        </div>
-      </details>
     </div>
   )
 }
