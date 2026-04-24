@@ -55,14 +55,21 @@ export async function updateProfileAction(
 
   const { name, bio, city, skillLevel, isDiscoverable } = validated.data
 
-  let avatarUrl: string | undefined
+  const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif']
+
+  let avatarUrl: string | null | undefined
   const avatarFile = formData.get('avatar') as File | null
   if (avatarFile && avatarFile.size > 0) {
+    if (!ALLOWED_IMAGE_TYPES.includes(avatarFile.type)) {
+      return { errors: { avatar: ['Please upload a JPEG, PNG, WebP, AVIF, or GIF file.'] } }
+    }
     try {
       avatarUrl = await uploadFile(avatarFile, 'avatars')
     } catch {
       return { errors: { avatar: ['Failed to upload image — please try again'] } }
     }
+  } else if (formData.get('removeAvatar') === 'true') {
+    avatarUrl = null
   }
 
   let lat: number | undefined

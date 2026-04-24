@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState, useState } from 'react'
+import { useActionState, useRef, useState } from 'react'
 import { updateProfileAction, type UpdateProfileState } from '@/app/(main)/profile/actions'
 import { GENRES } from '@/constants/genres'
 import { INSTRUMENTS } from '@/constants/instruments'
@@ -59,6 +59,10 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
   const [selectedGenres, setSelectedGenres] = useState<Set<string>>(initialGenres)
   const [skillLevel, setSkillLevel] = useState(profile.skillLevel)
   const [isDiscoverable, setIsDiscoverable] = useState(profile.isDiscoverable)
+  const [removeAvatar, setRemoveAvatar] = useState(false)
+  const [avatarTypeError, setAvatarTypeError] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const ALLOWED_AVATAR_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif']
 
   function toggleInstrument(item: string) {
     setSelectedInstruments((prev) => {
@@ -83,6 +87,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
       <input type="hidden" name="instrumentsJson" value={JSON.stringify([...selectedInstruments])} />
       <input type="hidden" name="genresJson" value={JSON.stringify([...selectedGenres])} />
       <input type="hidden" name="isDiscoverable" value={String(isDiscoverable)} />
+      <input type="hidden" name="removeAvatar" value={String(removeAvatar)} />
 
       {state.success && (
         <div className="text-sm text-green-700 bg-green-50 border border-green-200 rounded px-3 py-2">
@@ -117,20 +122,51 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
       {/* Avatar */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Profile photo</label>
-        {profile.avatarUrl && (
-          <img
-            src={profile.avatarUrl}
-            alt={profile.name}
-            className="w-16 h-16 rounded-full object-cover mb-2"
-          />
+        {profile.avatarUrl && !removeAvatar && (
+          <div className="flex items-center gap-3 mb-2">
+            <img
+              src={profile.avatarUrl}
+              alt={profile.name}
+              className="w-16 h-16 rounded-full object-cover"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setRemoveAvatar(true)
+                if (fileInputRef.current) fileInputRef.current.value = ''
+              }}
+              className="text-xs text-gray-500 hover:text-red-600 underline"
+            >
+              Remove photo
+            </button>
+          </div>
+        )}
+        {removeAvatar && (
+          <p className="text-xs text-gray-500 mb-2">Photo will be removed on save.</p>
         )}
         <input
+          ref={fileInputRef}
           name="avatar"
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/gif,image/webp,image/avif"
+          onChange={(e) => {
+            const file = e.target.files?.[0]
+            if (file && !ALLOWED_AVATAR_TYPES.includes(file.type)) {
+              setAvatarTypeError(true)
+              e.target.value = ''
+            } else {
+              setAvatarTypeError(false)
+              setRemoveAvatar(false)
+            }
+          }}
           className="w-full text-sm text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
         />
-        {fieldError(errors, 'avatar') && (
+        {avatarTypeError && (
+          <p className="text-xs text-red-600 mt-1">
+            Unsupported format. Please upload a JPEG, PNG, WebP, AVIF, or GIF.
+          </p>
+        )}
+        {!avatarTypeError && fieldError(errors, 'avatar') && (
           <p className="text-xs text-red-600 mt-1">{fieldError(errors, 'avatar')}</p>
         )}
       </div>

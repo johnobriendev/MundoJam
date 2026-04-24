@@ -3,7 +3,7 @@ import { prisma } from '../prisma'
 export interface UpdateProfileInput {
   userId: string
   name: string
-  avatarUrl?: string
+  avatarUrl?: string | null
   bio?: string
   city?: string
   lat?: number
