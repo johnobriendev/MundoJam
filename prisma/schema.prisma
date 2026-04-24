@@ -101,6 +101,7 @@ model Jam {
   hostId            String
   address           String
   city              String
+  country           String
   lat               Float
   lng               Float
   recurrenceType    RecurrenceType

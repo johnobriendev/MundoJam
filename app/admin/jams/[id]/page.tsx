@@ -59,7 +59,7 @@ export default async function AdminJamPage({ params }: { params: Promise<{ id: s
         <div>
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Location</p>
           <p className="text-gray-800">{jam.address}</p>
-          <p className="text-gray-500">{jam.city}</p>
+          <p className="text-gray-500">{jam.city}, {jam.country}</p>
         </div>
         <div>
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Schedule</p>

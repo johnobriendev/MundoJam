@@ -26,6 +26,7 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Sea
     equipment: toArray(params.equipment),
     recurrenceType: typeof params.recurrence === 'string' ? params.recurrence : undefined,
     city: typeof params.city === 'string' ? params.city : undefined,
+    country: typeof params.country === 'string' ? params.country : undefined,
     dateFrom: toDate(params.dateFrom),
     dateTo: toDate(params.dateTo),
   })

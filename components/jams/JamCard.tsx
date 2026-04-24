@@ -24,7 +24,7 @@ export default function JamCard({ occurrence }: { occurrence: JamOccurrenceWithJ
           </p>
           <h3 className="font-semibold text-gray-900 truncate">{jam.title}</h3>
           <p className="text-sm text-gray-500 mt-0.5">
-            {jam.city} · hosted by {jam.host.name}
+            {jam.city}, {jam.country} · hosted by {jam.host.name}
           </p>
         </div>
         <span className="shrink-0 text-xs bg-gray-100 text-gray-600 rounded-full px-2 py-0.5 whitespace-nowrap">

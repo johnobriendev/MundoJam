@@ -53,7 +53,7 @@ export default async function OccurrencePage({
 
       <div className="text-sm">
         <p className="font-medium text-gray-800">{jam.address}</p>
-        <p className="text-gray-500">{jam.city}</p>
+        <p className="text-gray-500">{jam.city}, {jam.country}</p>
       </div>
 
       {jam.description && (

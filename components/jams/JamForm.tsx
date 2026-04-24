@@ -16,6 +16,7 @@ export interface JamFormInitialValues {
   description?: string
   address?: string
   city?: string
+  country?: string
   genres?: string[]
   instruments?: string[]
   equipment?: EquipmentEntry[]
@@ -263,6 +264,25 @@ export function JamForm({ initialValues }: { initialValues?: JamFormInitialValue
         />
         {fieldError(errors, 'city') && (
           <p className="text-xs text-red-600 mt-1">{fieldError(errors, 'city')}</p>
+        )}
+      </div>
+
+      {/* Country */}
+      <div>
+        <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
+          Country <span className="text-red-500">*</span>
+        </label>
+        <input
+          id="country"
+          name="country"
+          type="text"
+          required
+          defaultValue={initialValues?.country}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          placeholder="United States"
+        />
+        {fieldError(errors, 'country') && (
+          <p className="text-xs text-red-600 mt-1">{fieldError(errors, 'country')}</p>
         )}
       </div>
 

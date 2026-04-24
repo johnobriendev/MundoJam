@@ -12,6 +12,7 @@ export interface CreateJamInput {
   hostId: string
   address: string
   city: string
+  country: string
   lat: number
   lng: number
   genres: string[]
@@ -33,6 +34,7 @@ export async function createJam(input: CreateJamInput) {
       hostId: input.hostId,
       address: input.address,
       city: input.city,
+      country: input.country,
       lat: input.lat,
       lng: input.lng,
       recurrenceType: input.recurrenceType,

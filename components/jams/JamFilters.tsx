@@ -13,6 +13,7 @@ export default function JamFilters() {
   const dateFrom = searchParams.get('dateFrom') ?? ''
   const dateTo = searchParams.get('dateTo') ?? ''
   const city = searchParams.get('city') ?? ''
+  const country = searchParams.get('country') ?? ''
 
   const push = useCallback(
     (updates: Record<string, string | string[]>) => {
@@ -41,7 +42,8 @@ export default function JamFilters() {
     genres.length > 0 ||
     dateFrom ||
     dateTo ||
-    city
+    city ||
+    country
 
   const chipClass = (active: boolean) =>
     `text-xs rounded-full px-1.5 py-0.5 border transition-colors cursor-pointer ${
@@ -56,11 +58,21 @@ export default function JamFilters() {
         <input
           type="text"
           defaultValue={city}
-          placeholder="Search by city"
+          placeholder="City"
           className="flex-1 border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
           onBlur={(e) => push({ city: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === 'Enter') push({ city: (e.target as HTMLInputElement).value })
+          }}
+        />
+        <input
+          type="text"
+          defaultValue={country}
+          placeholder="Country"
+          className="flex-1 border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          onBlur={(e) => push({ country: e.target.value })}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') push({ country: (e.target as HTMLInputElement).value })
           }}
         />
         {hasFilters && (

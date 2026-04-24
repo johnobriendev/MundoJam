@@ -8,12 +8,13 @@ export interface JamFiltersInput {
   dateFrom?: Date
   dateTo?: Date
   city?: string
+  country?: string
 }
 
 const VALID_RECURRENCE = new Set(['ONE_TIME', 'WEEKLY', 'MONTHLY'])
 
 export async function getJams(filters: JamFiltersInput = {}) {
-  const { genres, instruments, equipment, recurrenceType, dateFrom, dateTo, city } = filters
+  const { genres, instruments, equipment, recurrenceType, dateFrom, dateTo, city, country } = filters
 
   const validRecurrence = recurrenceType && VALID_RECURRENCE.has(recurrenceType)
     ? (recurrenceType as 'ONE_TIME' | 'WEEKLY' | 'MONTHLY')
@@ -30,6 +31,7 @@ export async function getJams(filters: JamFiltersInput = {}) {
         status: 'APPROVED',
         ...(validRecurrence ? { recurrenceType: validRecurrence } : {}),
         ...(city ? { city: { contains: city, mode: 'insensitive' } } : {}),
+        ...(country ? { country: { contains: country, mode: 'insensitive' } } : {}),
         ...(genres?.length ? { genres: { some: { genre: { in: genres } } } } : {}),
         ...(instruments?.length ? { instrumentsNeeded: { some: { instrument: { in: instruments } } } } : {}),
         ...(equipment?.length ? { equipment: { some: { item: { in: equipment } } } } : {}),

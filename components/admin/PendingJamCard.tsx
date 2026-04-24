@@ -10,6 +10,7 @@ interface PendingJamCardProps {
     id: string
     title: string
     city: string
+    country: string
     recurrenceType: string
     startDate: Date
     createdAt: Date
@@ -65,7 +66,7 @@ export function PendingJamCard({ jam }: PendingJamCardProps) {
             {jam.title}
           </Link>
           <p className="text-xs text-gray-500 mt-0.5">
-            {jam.host.name} &middot; {jam.city} &middot;{' '}
+            {jam.host.name} &middot; {jam.city}, {jam.country} &middot;{' '}
             {jam.recurrenceType === 'ONE_TIME'
               ? 'One time'
               : jam.recurrenceType === 'WEEKLY'

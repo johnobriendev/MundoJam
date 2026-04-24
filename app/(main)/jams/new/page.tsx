@@ -25,6 +25,7 @@ export default async function NewJamPage({
         description: jam.description,
         address: jam.address,
         city: jam.city,
+        country: jam.country,
         genres: jam.genres.map((g) => g.genre),
         instruments: jam.instrumentsNeeded.map((i) => i.instrument),
         equipment: jam.equipment.map((e) => ({ item: e.item, notes: e.notes ?? '' })),

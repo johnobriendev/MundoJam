@@ -17,6 +17,7 @@ const jamSchema = z.object({
   description: z.string().min(1, 'Description is required'),
   address: z.string().min(1, 'Address is required'),
   city: z.string().min(1, 'City is required'),
+  country: z.string().min(1, 'Country is required'),
   recurrenceType: z.enum(['ONE_TIME', 'WEEKLY', 'MONTHLY'], {
     error: 'Select a recurrence type',
   }),
@@ -65,6 +66,7 @@ export async function submitJam(
     description: formData.get('description'),
     address: formData.get('address'),
     city: formData.get('city'),
+    country: formData.get('country'),
     recurrenceType: formData.get('recurrenceType'),
     startDate: startDateCombined,
     endTime: endTimeCombined,
@@ -79,7 +81,7 @@ export async function submitJam(
     return { errors: validated.error.flatten().fieldErrors as Record<string, string[]> }
   }
 
-  const { title, description, address, city, recurrenceType, startDate, endTime, endDate, resubmittedFromId } =
+  const { title, description, address, city, country, recurrenceType, startDate, endTime, endDate, resubmittedFromId } =
     validated.data
 
   let coverImageUrl: string | undefined
@@ -101,6 +103,7 @@ export async function submitJam(
     hostId: user.id,
     address,
     city,
+    country,
     lat,
     lng,
     genres: validated.data.genres,
