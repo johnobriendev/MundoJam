@@ -44,3 +44,8 @@ next-env.d.ts
 
 # uploads
 /public/uploads/
+
+# Claude AI files
+CLAUDE.md
+AGENTS.md
+PLAN.md
