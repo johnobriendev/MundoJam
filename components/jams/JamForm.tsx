@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useState } from 'react'
-import { submitJam, type SubmitJamState } from '@/app/(main)/jams/new/actions'
+import { type JamFormState } from '@/lib/jams/jamSchema'
 import { GENRES } from '@/constants/genres'
 import { INSTRUMENTS } from '@/constants/instruments'
 import { EQUIPMENT } from '@/constants/equipment'
@@ -14,6 +14,7 @@ interface EquipmentEntry {
 export interface JamFormInitialValues {
   title?: string
   description?: string
+  coverImageUrl?: string
   address?: string
   city?: string
   country?: string
@@ -61,8 +62,16 @@ function CheckboxGrid({
   )
 }
 
-export function JamForm({ initialValues }: { initialValues?: JamFormInitialValues }) {
-  const [state, action, pending] = useActionState<SubmitJamState, FormData>(submitJam, {})
+export function JamForm({
+  initialValues,
+  action: serverAction,
+  submitLabel = 'Submit for approval',
+}: {
+  initialValues?: JamFormInitialValues
+  action: (prevState: JamFormState, formData: FormData) => Promise<JamFormState>
+  submitLabel?: string
+}) {
+  const [state, action, pending] = useActionState<JamFormState, FormData>(serverAction, {})
 
   // --- Genres ---
   const initialGenreSet = new Set(
@@ -217,6 +226,16 @@ export function JamForm({ initialValues }: { initialValues?: JamFormInitialValue
         <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700 mb-1">
           Cover image
         </label>
+        {initialValues?.coverImageUrl && (
+          <div className="mb-2">
+            <img
+              src={initialValues.coverImageUrl}
+              alt="Current cover"
+              className="w-32 h-20 object-cover rounded"
+            />
+            <p className="text-xs text-gray-500 mt-1">Upload a new image to replace the current one.</p>
+          </div>
+        )}
         <input
           id="coverImage"
           name="coverImage"
@@ -504,7 +523,7 @@ export function JamForm({ initialValues }: { initialValues?: JamFormInitialValue
           disabled={pending}
           className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-medium py-2 px-6 rounded-md text-sm transition-colors"
         >
-          {pending ? 'Submitting…' : 'Submit for approval'}
+          {pending ? 'Submitting…' : submitLabel}
         </button>
         <p className="text-xs text-gray-500 mt-2">
           Your jam will be reviewed by our team before appearing on the site.

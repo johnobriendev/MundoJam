@@ -128,6 +128,17 @@ export default async function OccurrencePage({
         />
       </div>
 
+      {user && (user.id === jam.host.id || user.role === 'ADMIN') && (
+        <div className="flex justify-end pt-2">
+          <Link
+            href={`/jams/${occurrence.id}/edit`}
+            className="text-sm text-indigo-600 hover:text-indigo-700 font-medium border border-indigo-200 rounded-md px-4 py-1.5 hover:bg-indigo-50 transition-colors"
+          >
+            Edit jam
+          </Link>
+        </div>
+      )}
+
       {user && user.id !== jam.host.id && (
         <div className="flex justify-end pt-2">
           <ReportButton targetType="JAM" targetId={jam.id} />

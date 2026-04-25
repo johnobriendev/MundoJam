@@ -4,17 +4,35 @@ import { redirect } from 'next/navigation'
 import { requireUser } from '@/lib/session'
 import { uploadFile } from '@/lib/storage'
 import { geocodeAddress } from '@/lib/geocoding'
-import { createJam } from '@/lib/jams/createJam'
+import { updateJam } from '@/lib/jams/updateJam'
 import { jamSchema, type JamFormState } from '@/lib/jams/jamSchema'
+import { prisma } from '@/lib/prisma'
 
-export type { JamFormState }
-export type SubmitJamState = JamFormState
-
-export async function submitJam(
+export async function updateJamAction(
+  occurrenceId: string,
   _prevState: JamFormState,
   formData: FormData
 ): Promise<JamFormState> {
   const user = await requireUser()
+
+  const occurrence = await prisma.jamOccurrence.findUnique({
+    where: { id: occurrenceId },
+    include: { jam: true },
+  })
+
+  if (!occurrence) {
+    return { errors: { _form: ['Jam not found'] } }
+  }
+
+  const { jam } = occurrence
+
+  if (jam.hostId !== user.id && user.role !== 'ADMIN') {
+    return { errors: { _form: ['You are not authorized to edit this jam'] } }
+  }
+
+  if (jam.status === 'CANCELLED') {
+    return { errors: { _form: ['This jam cannot be edited because it has been cancelled'] } }
+  }
 
   let genres: string[] = []
   let instruments: string[] = []
@@ -49,21 +67,20 @@ export async function submitJam(
     genres,
     instruments,
     equipment,
-    resubmittedFromId: (formData.get('resubmittedFromId') as string) || undefined,
   })
 
   if (!validated.success) {
     return { errors: validated.error.flatten().fieldErrors as Record<string, string[]> }
   }
 
-  const { title, description, address, city, country, recurrenceType, startDate, endTime, endDate, resubmittedFromId } =
+  const { title, description, address, city, country, recurrenceType, startDate, endTime, endDate } =
     validated.data
 
-  let coverImageUrl: string | undefined
+  let newCoverImageUrl: string | undefined
   const coverImage = formData.get('coverImage') as File | null
   if (coverImage && coverImage.size > 0) {
     try {
-      coverImageUrl = await uploadFile(coverImage, 'jam-covers')
+      newCoverImageUrl = await uploadFile(coverImage, 'jam-covers')
     } catch {
       return { errors: { coverImage: ['Failed to upload image — please try again'] } }
     }
@@ -71,11 +88,11 @@ export async function submitJam(
 
   const { lat, lng } = await geocodeAddress(address)
 
-  await createJam({
+  await updateJam({
+    jamId: jam.id,
     title,
     description,
-    coverImageUrl,
-    hostId: user.id,
+    coverImageUrl: newCoverImageUrl,
     address,
     city,
     country,
@@ -88,8 +105,7 @@ export async function submitJam(
     startDate: new Date(startDate),
     endTime: endTime ? new Date(endTime) : undefined,
     endDate: endDate ? new Date(endDate) : undefined,
-    resubmittedFromId,
   })
 
-  redirect('/?submitted=1')
+  redirect(`/jams/${occurrenceId}`)
 }

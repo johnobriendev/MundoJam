@@ -1,6 +1,7 @@
 import { requireUser } from '@/lib/session'
 import { prisma } from '@/lib/prisma'
 import { JamForm, type JamFormInitialValues } from '@/components/jams/JamForm'
+import { submitJam } from './actions'
 
 export default async function NewJamPage({
   searchParams,
@@ -48,7 +49,7 @@ export default async function NewJamPage({
           Your previous submission was rejected. Review the feedback, make changes, and resubmit.
         </p>
       )}
-      <JamForm initialValues={initialValues} />
+      <JamForm initialValues={initialValues} action={submitJam} />
     </div>
   )
 }
