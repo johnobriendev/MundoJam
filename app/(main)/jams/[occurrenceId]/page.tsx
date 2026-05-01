@@ -7,6 +7,7 @@ import { getCurrentUser } from '@/lib/session'
 import { RsvpButtons } from '@/components/jams/RsvpButtons'
 import { CommentThread } from '@/components/comments/CommentThread'
 import { ReportButton } from '@/components/jams/ReportButton'
+import JamDetailMapClient from '@/components/map/JamDetailMapClient'
 
 export default async function OccurrencePage({
   params,
@@ -55,6 +56,8 @@ export default async function OccurrencePage({
         <p className="font-medium text-primary">{jam.address}</p>
         <p className="text-secondary">{jam.city}, {jam.country}</p>
       </div>
+
+      <JamDetailMapClient lat={jam.lat} lng={jam.lng} />
 
       {jam.description && (
         <p className="text-sm text-primary whitespace-pre-wrap">{jam.description}</p>
