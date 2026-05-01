@@ -1,20 +1,59 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
-  --background: #f8fafc;
-  --foreground: #171717;
+  color-scheme: light dark;
+
+  /* ☀️ LIGHT MODE — Indie Analog */
+  --bg-base: #f6f3f1;
+  --bg-surface: #ffffff;
+  --bg-muted: #ebe7e4;
+
+  --text-primary: #2f2a28;
+  --text-secondary: #6b6f76;
+
+  --accent: #c2410c;        /* burnt orange */
+  --accent-warm: #eab308;   /* warm gold */
+
+  --border: #ddd6d3;
+  --border-focus: #c2410c;
+}
+
+.dark {
+  /* 🌙 DARK MODE — Neon Studio (Synth / DAW vibe) */
+  --bg-base: #0f0f13;
+  --bg-surface: #18181f;
+  --bg-muted: #23232b;
+
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+
+  --accent: #7c3aed;        /* neon purple */
+  --accent-warm: #22c55e;   /* electric green */
+
+  --border: #2a2a33;
+  --border-focus: #7c3aed;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-surface: var(--bg-surface);
+  --color-muted: var(--bg-muted);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-warm: var(--accent-warm);
+  --color-border: var(--border);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  *, *::before, *::after {
+    border-color: var(--border);
+  }
+
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+  }
 }
