@@ -51,18 +51,18 @@ export default function MusicianFilters() {
   const chipClass = (active: boolean) =>
     `text-xs rounded-full px-2 py-0.5 border transition-colors cursor-pointer ${
       active
-        ? 'bg-indigo-600 text-white border-indigo-600'
-        : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300'
+        ? 'bg-accent text-white border-accent'
+        : 'bg-surface text-secondary border hover:border-[var(--border-focus)]'
     }`
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 space-y-4">
+    <div className="rounded-lg border bg-surface p-4 space-y-4">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-gray-900">Filters</span>
+        <span className="text-sm font-semibold text-primary">Filters</span>
         {hasFilters && (
           <button
             onClick={() => router.push(pathname)}
-            className="text-xs text-indigo-600 hover:underline"
+            className="text-xs text-accent hover:underline"
           >
             Clear all
           </button>
@@ -71,12 +71,12 @@ export default function MusicianFilters() {
 
       {/* City */}
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">City</label>
+        <label className="block text-xs font-medium text-primary mb-1">City</label>
         <input
           type="text"
           defaultValue={city}
           placeholder="e.g. Austin"
-          className="w-full border border-gray-200 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          className="w-full border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-accent"
           onBlur={(e) => push({ city: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === 'Enter') push({ city: (e.target as HTMLInputElement).value })
@@ -86,11 +86,11 @@ export default function MusicianFilters() {
 
       {/* Skill level */}
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Skill level</label>
+        <label className="block text-xs font-medium text-primary mb-1">Skill level</label>
         <select
           value={skillLevel}
           onChange={(e) => push({ skillLevel: e.target.value })}
-          className="w-full border border-gray-200 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          className="w-full border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-accent"
         >
           {SKILL_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
@@ -102,7 +102,7 @@ export default function MusicianFilters() {
 
       {/* Instruments */}
       <details open={instruments.length > 0}>
-        <summary className="text-xs font-medium text-gray-700 cursor-pointer select-none">
+        <summary className="text-xs font-medium text-primary cursor-pointer select-none">
           Instruments{instruments.length > 0 ? ` (${instruments.length})` : ''}
         </summary>
         <div className="mt-2 flex flex-wrap gap-1.5">
@@ -121,7 +121,7 @@ export default function MusicianFilters() {
 
       {/* Genres */}
       <details open={genres.length > 0}>
-        <summary className="text-xs font-medium text-gray-700 cursor-pointer select-none">
+        <summary className="text-xs font-medium text-primary cursor-pointer select-none">
           Genres{genres.length > 0 ? ` (${genres.length})` : ''}
         </summary>
         <div className="mt-2 flex flex-wrap gap-1.5">

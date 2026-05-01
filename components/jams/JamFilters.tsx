@@ -48,18 +48,18 @@ export default function JamFilters() {
   const chipClass = (active: boolean) =>
     `text-xs rounded-full px-1.5 py-0.5 border transition-colors cursor-pointer ${
       active
-        ? 'bg-indigo-600 text-white border-indigo-600'
-        : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300'
+        ? 'bg-accent text-white border-accent'
+        : 'bg-surface text-secondary border hover:border-[var(--border-focus)]'
     }`
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-3 space-y-2">
+    <div className="rounded-lg border bg-surface p-3 space-y-2">
       <div className="flex items-center gap-2">
         <input
           type="text"
           defaultValue={city}
           placeholder="City"
-          className="flex-1 border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          className="flex-1 border rounded-md px-2.5 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
           onBlur={(e) => push({ city: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === 'Enter') push({ city: (e.target as HTMLInputElement).value })
@@ -69,7 +69,7 @@ export default function JamFilters() {
           type="text"
           defaultValue={country}
           placeholder="Country"
-          className="flex-1 border border-gray-200 rounded-md px-2.5 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          className="flex-1 border rounded-md px-2.5 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
           onBlur={(e) => push({ country: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === 'Enter') push({ country: (e.target as HTMLInputElement).value })
@@ -78,7 +78,7 @@ export default function JamFilters() {
         {hasFilters && (
           <button
             onClick={() => router.push(pathname)}
-            className="text-xs text-indigo-600 hover:underline shrink-0"
+            className="text-xs text-accent hover:underline shrink-0"
           >
             Clear
           </button>
@@ -91,19 +91,19 @@ export default function JamFilters() {
           type="date"
           value={dateFrom}
           onChange={(e) => push({ dateFrom: e.target.value })}
-          className="w-full border border-gray-200 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          className="w-full border rounded-md px-2 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
         />
         <input
           type="date"
           value={dateTo}
           onChange={(e) => push({ dateTo: e.target.value })}
-          className="w-full border border-gray-200 rounded-md px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+          className="w-full border rounded-md px-2 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
         />
       </div>
 
       {/* Genres */}
       <details open={genres.length > 0}>
-        <summary className="text-xs font-medium text-gray-700 cursor-pointer select-none">
+        <summary className="text-xs font-medium text-primary cursor-pointer select-none">
           Genre{genres.length > 0 ? ` (${genres.length})` : ''}
         </summary>
         <div className="mt-1.5 flex flex-wrap gap-1">

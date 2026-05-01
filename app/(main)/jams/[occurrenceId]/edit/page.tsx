@@ -50,7 +50,7 @@ export default async function EditJamPage({
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Edit Jam</h1>
+      <h1 className="text-2xl font-bold text-primary mb-6">Edit Jam</h1>
       <JamForm initialValues={initialValues} action={boundAction} submitLabel="Save changes" />
     </div>
   )

@@ -51,7 +51,7 @@ function CheckboxGrid({
         <label key={item} className="flex items-center gap-2 text-sm cursor-pointer">
           <input
             type="checkbox"
-            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            className="rounded border text-accent focus:ring-accent"
             checked={selected.has(item)}
             onChange={() => onToggle(item)}
           />
@@ -185,7 +185,7 @@ export function JamForm({
 
       {/* Title */}
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="title" className="block text-sm font-medium text-primary mb-1">
           Title <span className="text-red-500">*</span>
         </label>
         <input
@@ -194,7 +194,7 @@ export function JamForm({
           type="text"
           required
           defaultValue={initialValues?.title}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           placeholder="Wednesday Night Blues Jam"
         />
         {fieldError(errors, 'title') && (
@@ -204,7 +204,7 @@ export function JamForm({
 
       {/* Description */}
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="description" className="block text-sm font-medium text-primary mb-1">
           Description <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -213,7 +213,7 @@ export function JamForm({
           required
           rows={4}
           defaultValue={initialValues?.description}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-y"
+          className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent resize-y"
           placeholder="Tell musicians what to expect…"
         />
         {fieldError(errors, 'description') && (
@@ -223,7 +223,7 @@ export function JamForm({
 
       {/* Cover image */}
       <div>
-        <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="coverImage" className="block text-sm font-medium text-primary mb-1">
           Cover image
         </label>
         {initialValues?.coverImageUrl && (
@@ -233,7 +233,7 @@ export function JamForm({
               alt="Current cover"
               className="w-32 h-20 object-cover rounded"
             />
-            <p className="text-xs text-gray-500 mt-1">Upload a new image to replace the current one.</p>
+            <p className="text-xs text-secondary mt-1">Upload a new image to replace the current one.</p>
           </div>
         )}
         <input
@@ -241,7 +241,7 @@ export function JamForm({
           name="coverImage"
           type="file"
           accept="image/*"
-          className="w-full text-sm text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+          className="w-full text-sm text-secondary file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:bg-muted file:text-accent hover:file:bg-muted"
         />
         {fieldError(errors, 'coverImage') && (
           <p className="text-xs text-red-600 mt-1">{fieldError(errors, 'coverImage')}</p>
@@ -250,7 +250,7 @@ export function JamForm({
 
       {/* Address */}
       <div>
-        <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="address" className="block text-sm font-medium text-primary mb-1">
           Address <span className="text-red-500">*</span>
         </label>
         <input
@@ -259,7 +259,7 @@ export function JamForm({
           type="text"
           required
           defaultValue={initialValues?.address}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           placeholder="123 Main St, Austin, TX 78701"
         />
         {fieldError(errors, 'address') && (
@@ -269,7 +269,7 @@ export function JamForm({
 
       {/* City */}
       <div>
-        <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="city" className="block text-sm font-medium text-primary mb-1">
           City <span className="text-red-500">*</span>
         </label>
         <input
@@ -278,7 +278,7 @@ export function JamForm({
           type="text"
           required
           defaultValue={initialValues?.city}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           placeholder="Austin"
         />
         {fieldError(errors, 'city') && (
@@ -288,7 +288,7 @@ export function JamForm({
 
       {/* Country */}
       <div>
-        <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="country" className="block text-sm font-medium text-primary mb-1">
           Country <span className="text-red-500">*</span>
         </label>
         <input
@@ -297,7 +297,7 @@ export function JamForm({
           type="text"
           required
           defaultValue={initialValues?.country}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           placeholder="United States"
         />
         {fieldError(errors, 'country') && (
@@ -307,7 +307,7 @@ export function JamForm({
 
       {/* Genres */}
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">
+        <p className="block text-sm font-medium text-primary mb-2">
           Genres <span className="text-red-500">*</span>
         </p>
         <CheckboxGrid items={STANDARD_GENRES} selected={selectedGenres} onToggle={toggleGenre} />
@@ -315,7 +315,7 @@ export function JamForm({
         <label className="flex items-center gap-2 text-sm cursor-pointer mt-2">
           <input
             type="checkbox"
-            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            className="rounded border text-accent focus:ring-accent"
             checked={genreOtherChecked}
             onChange={() => setGenreOtherChecked((v) => !v)}
           />
@@ -327,7 +327,7 @@ export function JamForm({
             value={genreOther}
             onChange={(e) => setGenreOther(e.target.value)}
             placeholder="Specify genre…"
-            className="mt-2 w-full max-w-xs border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="mt-2 w-full max-w-xs border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           />
         )}
         {fieldError(errors, 'genres') && (
@@ -337,7 +337,7 @@ export function JamForm({
 
       {/* Instruments needed */}
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">Instruments needed</p>
+        <p className="block text-sm font-medium text-primary mb-2">Instruments needed</p>
         <CheckboxGrid
           items={STANDARD_INSTRUMENTS}
           selected={selectedInstruments}
@@ -346,7 +346,7 @@ export function JamForm({
         <label className="flex items-center gap-2 text-sm cursor-pointer mt-2">
           <input
             type="checkbox"
-            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            className="rounded border text-accent focus:ring-accent"
             checked={instrumentOtherChecked}
             onChange={() => setInstrumentOtherChecked((v) => !v)}
           />
@@ -358,21 +358,21 @@ export function JamForm({
             value={instrumentOther}
             onChange={(e) => setInstrumentOther(e.target.value)}
             placeholder="Specify instrument…"
-            className="mt-2 w-full max-w-xs border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="mt-2 w-full max-w-xs border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           />
         )}
       </div>
 
       {/* Equipment provided */}
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">Equipment provided</p>
+        <p className="block text-sm font-medium text-primary mb-2">Equipment provided</p>
         <div className="space-y-3">
           {STANDARD_EQUIPMENT.map((item) => (
             <div key={item}>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  className="rounded border text-accent focus:ring-accent"
                   checked={equipmentMap.has(item)}
                   onChange={() => toggleEquipment(item)}
                 />
@@ -384,7 +384,7 @@ export function JamForm({
                   value={equipmentMap.get(item) ?? ''}
                   onChange={(e) => updateEquipmentNotes(item, e.target.value)}
                   placeholder="Notes (optional)…"
-                  className="mt-1 ml-6 w-full max-w-sm border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="mt-1 ml-6 w-full max-w-sm border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               )}
             </div>
@@ -394,7 +394,7 @@ export function JamForm({
             <label className="flex items-center gap-2 text-sm cursor-pointer">
               <input
                 type="checkbox"
-                className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                className="rounded border text-accent focus:ring-accent"
                 checked={equipmentOtherChecked}
                 onChange={() => setEquipmentOtherChecked((v) => !v)}
               />
@@ -407,14 +407,14 @@ export function JamForm({
                   value={equipmentOtherName}
                   onChange={(e) => setEquipmentOtherName(e.target.value)}
                   placeholder="Equipment name…"
-                  className="w-full max-w-sm border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full max-w-sm border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                 />
                 <input
                   type="text"
                   value={equipmentOtherNotes}
                   onChange={(e) => setEquipmentOtherNotes(e.target.value)}
                   placeholder="Notes (optional)…"
-                  className="w-full max-w-sm border border-gray-300 rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full max-w-sm border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               </div>
             )}
@@ -424,7 +424,7 @@ export function JamForm({
 
       {/* Recurrence type */}
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">
+        <p className="block text-sm font-medium text-primary mb-2">
           Recurrence <span className="text-red-500">*</span>
         </p>
         <div className="flex gap-4">
@@ -436,7 +436,7 @@ export function JamForm({
                 value={type}
                 checked={recurrenceType === type}
                 onChange={() => setRecurrenceType(type)}
-                className="text-indigo-600 focus:ring-indigo-500"
+                className="text-accent focus:ring-accent"
               />
               {type === 'ONE_TIME' ? 'One-time' : type === 'WEEKLY' ? 'Weekly' : 'Monthly'}
             </label>
@@ -449,13 +449,13 @@ export function JamForm({
 
       {/* Start date + time */}
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-3">
+        <p className="block text-sm font-medium text-primary mb-3">
           {recurrenceType === 'ONE_TIME' ? 'Date & time' : 'First occurrence'}{' '}
           <span className="text-red-500">*</span>
         </p>
         <div className="grid grid-cols-3 gap-4 max-w-lg">
           <div>
-            <label htmlFor="startDate" className="block text-xs font-medium text-gray-500 mb-1">
+            <label htmlFor="startDate" className="block text-xs font-medium text-secondary mb-1">
               Date
             </label>
             <input
@@ -464,11 +464,11 @@ export function JamForm({
               type="date"
               required
               defaultValue={initialValues?.startDate?.slice(0, 10)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div>
-            <label htmlFor="startTime" className="block text-xs font-medium text-gray-500 mb-1">
+            <label htmlFor="startTime" className="block text-xs font-medium text-secondary mb-1">
               Start time
             </label>
             <input
@@ -477,19 +477,19 @@ export function JamForm({
               type="time"
               required
               defaultValue={initialValues?.startDate?.slice(11, 16)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div>
-            <label htmlFor="endTime" className="block text-xs font-medium text-gray-500 mb-1">
-              End time <span className="text-gray-400 font-normal">(optional)</span>
+            <label htmlFor="endTime" className="block text-xs font-medium text-secondary mb-1">
+              End time <span className="text-secondary font-normal">(optional)</span>
             </label>
             <input
               id="endTime"
               name="endTime"
               type="time"
               defaultValue={initialValues?.endTime}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
         </div>
@@ -501,17 +501,17 @@ export function JamForm({
       {/* End date — only for recurring jams */}
       {recurrenceType !== 'ONE_TIME' && (
         <div>
-          <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-1">
-            End date <span className="text-gray-400 font-normal">(optional)</span>
+          <label htmlFor="endDate" className="block text-sm font-medium text-primary mb-1">
+            End date <span className="text-secondary font-normal">(optional)</span>
           </label>
           <input
             id="endDate"
             name="endDate"
             type="date"
             defaultValue={initialValues?.endDate?.slice(0, 10)}
-            className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-secondary mt-1">
             Leave blank for an ongoing {recurrenceType === 'WEEKLY' ? 'weekly' : 'monthly'} jam.
           </p>
         </div>
@@ -521,11 +521,11 @@ export function JamForm({
         <button
           type="submit"
           disabled={pending}
-          className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-medium py-2 px-6 rounded-md text-sm transition-colors"
+          className="bg-accent hover:bg-accent/90 disabled:opacity-50 text-white font-medium py-2 px-6 rounded-md text-sm transition-colors"
         >
           {pending ? 'Submitting…' : submitLabel}
         </button>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="text-xs text-secondary mt-2">
           Your jam will be reviewed by our team before appearing on the site.
         </p>
       </div>

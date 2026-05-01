@@ -41,11 +41,11 @@ export default async function NewJamPage({
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">
+      <h1 className="text-2xl font-bold text-primary mb-2">
         {initialValues?.resubmittedFromId ? 'Resubmit Jam' : 'Host a Jam'}
       </h1>
       {initialValues?.resubmittedFromId && (
-        <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 mb-6">
+        <p className="text-sm text-accent-warm bg-muted border rounded px-3 py-2 mb-6">
           Your previous submission was rejected. Review the feedback, make changes, and resubmit.
         </p>
       )}

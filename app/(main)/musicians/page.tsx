@@ -30,12 +30,12 @@ export default async function MusiciansPage({ searchParams }: { searchParams: Se
       </Suspense>
 
       <div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-3">
+        <h2 className="text-lg font-semibold text-primary mb-3">
           Musicians{musicians.length > 0 ? ` (${musicians.length})` : ''}
         </h2>
 
         {musicians.length === 0 ? (
-          <p className="text-gray-500 text-sm">No musicians match your filters.</p>
+          <p className="text-secondary text-sm">No musicians match your filters.</p>
         ) : (
           <div className="space-y-3">
             {musicians.map((musician) => (

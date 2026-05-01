@@ -10,25 +10,25 @@ export default async function AdminAuditPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-gray-900 mb-4">Audit Log</h1>
+      <h1 className="text-xl font-semibold text-primary mb-4">Audit Log</h1>
       {actions.length === 0 ? (
-        <p className="text-sm text-gray-500">No actions recorded yet.</p>
+        <p className="text-sm text-secondary">No actions recorded yet.</p>
       ) : (
-        <div className="border border-gray-200 rounded-lg divide-y divide-gray-100 text-sm">
+        <div className="border rounded-lg divide-y text-sm">
           {actions.map((a) => (
             <div key={a.id} className="px-4 py-3 flex items-start justify-between gap-4">
               <div className="space-y-0.5 min-w-0">
-                <p className="font-medium text-gray-900">{a.actionType}</p>
-                <p className="text-xs text-gray-500">
+                <p className="font-medium text-primary">{a.actionType}</p>
+                <p className="text-xs text-secondary">
                   {a.targetType} &middot;{' '}
                   <span className="font-mono">{a.targetId}</span>
-                  {a.note && <span className="ml-2 text-gray-400">— {a.note}</span>}
+                  {a.note && <span className="ml-2 text-secondary">— {a.note}</span>}
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-secondary">
                   by {a.admin.name} ({a.admin.email})
                 </p>
               </div>
-              <p className="text-xs text-gray-400 shrink-0">
+              <p className="text-xs text-secondary shrink-0">
                 {format(a.createdAt, 'MMM d, yyyy · h:mm a')}
               </p>
             </div>

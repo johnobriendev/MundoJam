@@ -11,23 +11,23 @@ export default async function AdminReportsPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-gray-900 mb-4">Open Reports</h1>
+      <h1 className="text-xl font-semibold text-primary mb-4">Open Reports</h1>
       {reports.length === 0 ? (
-        <p className="text-sm text-gray-500">No open reports.</p>
+        <p className="text-sm text-secondary">No open reports.</p>
       ) : (
         <div className="space-y-3">
           {reports.map((r) => (
-            <div key={r.id} className="border border-gray-200 rounded-lg p-4 text-sm">
+            <div key={r.id} className="border rounded-lg p-4 text-sm">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-1 min-w-0">
-                  <p className="font-medium text-gray-900">
-                    <span className="inline-block px-1.5 py-0.5 text-xs rounded bg-gray-100 text-gray-600 mr-2">
+                  <p className="font-medium text-primary">
+                    <span className="inline-block px-1.5 py-0.5 text-xs rounded bg-muted text-secondary mr-2">
                       {r.targetType}
                     </span>
-                    <span className="font-mono text-xs text-gray-500">{r.targetId}</span>
+                    <span className="font-mono text-xs text-secondary">{r.targetId}</span>
                   </p>
-                  <p className="text-gray-700">{r.reason}</p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-primary">{r.reason}</p>
+                  <p className="text-xs text-secondary">
                     Reported by {r.reporter.name} ({r.reporter.email}) &middot;{' '}
                     {format(r.createdAt, 'MMM d, yyyy')}
                   </p>

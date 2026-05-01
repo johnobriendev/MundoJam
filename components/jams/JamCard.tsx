@@ -14,20 +14,20 @@ export default function JamCard({ occurrence }: { occurrence: JamOccurrenceWithJ
   return (
     <Link
       href={`/jams/${occurrence.id}`}
-      className="block rounded-lg border border-gray-200 bg-white p-4 hover:border-indigo-300 hover:shadow-sm transition-all"
+      className="block rounded-lg border bg-surface p-4 hover:border-[var(--border-focus)] hover:shadow-sm transition-all"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-xs text-indigo-600 font-medium mb-0.5">
+          <p className="text-xs text-accent font-medium mb-0.5">
             {format(occurrence.date, 'EEE, MMM d, yyyy · h:mm a')}
             {jam.endTime && ` – ${format(jam.endTime, 'h:mm a')}`}
           </p>
-          <h3 className="font-semibold text-gray-900 truncate">{jam.title}</h3>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <h3 className="font-semibold text-primary truncate">{jam.title}</h3>
+          <p className="text-sm text-secondary mt-0.5">
             {jam.city}, {jam.country} · hosted by {jam.host.name}
           </p>
         </div>
-        <span className="shrink-0 text-xs bg-gray-100 text-gray-600 rounded-full px-2 py-0.5 whitespace-nowrap">
+        <span className="shrink-0 text-xs bg-muted text-secondary rounded-full px-2 py-0.5 whitespace-nowrap">
           {RECURRENCE_LABELS[jam.recurrenceType] ?? jam.recurrenceType}
         </span>
       </div>
@@ -37,7 +37,7 @@ export default function JamCard({ occurrence }: { occurrence: JamOccurrenceWithJ
           {jam.genres.map((g) => (
             <span
               key={g.genre}
-              className="text-xs bg-indigo-50 text-indigo-700 rounded-full px-2 py-0.5"
+              className="text-xs bg-muted text-accent rounded-full px-2 py-0.5"
             >
               {g.genre}
             </span>

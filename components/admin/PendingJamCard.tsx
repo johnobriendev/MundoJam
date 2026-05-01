@@ -56,16 +56,16 @@ export function PendingJamCard({ jam }: PendingJamCardProps) {
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg p-4 bg-white">
+    <div className="border rounded-lg p-4 bg-surface">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           <Link
             href={`/admin/jams/${jam.id}`}
-            className="text-sm font-semibold text-gray-900 hover:underline truncate block"
+            className="text-sm font-semibold text-primary hover:underline truncate block"
           >
             {jam.title}
           </Link>
-          <p className="text-xs text-gray-500 mt-0.5">
+          <p className="text-xs text-secondary mt-0.5">
             {jam.host.name} &middot; {jam.city}, {jam.country} &middot;{' '}
             {jam.recurrenceType === 'ONE_TIME'
               ? 'One time'
@@ -79,14 +79,14 @@ export function PendingJamCard({ jam }: PendingJamCardProps) {
               {jam.genres.map((g) => (
                 <span
                   key={g.genre}
-                  className="inline-block px-1.5 py-0.5 text-xs bg-gray-100 text-gray-600 rounded"
+                  className="inline-block px-1.5 py-0.5 text-xs bg-muted text-secondary rounded"
                 >
                   {g.genre}
                 </span>
               ))}
             </div>
           )}
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-secondary mt-1">
             Submitted {format(new Date(jam.createdAt), 'MMM d, yyyy h:mm a')}
           </p>
         </div>
@@ -110,9 +110,9 @@ export function PendingJamCard({ jam }: PendingJamCardProps) {
 
       {rejectOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
-            <h2 className="text-sm font-semibold text-gray-900 mb-1">Reject &ldquo;{jam.title}&rdquo;</h2>
-            <p className="text-xs text-gray-500 mb-3">
+          <div className="bg-surface rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
+            <h2 className="text-sm font-semibold text-primary mb-1">Reject &ldquo;{jam.title}&rdquo;</h2>
+            <p className="text-xs text-secondary mb-3">
               The host will receive an email with this reason and a link to resubmit.
             </p>
             <textarea
@@ -123,7 +123,7 @@ export function PendingJamCard({ jam }: PendingJamCardProps) {
               }}
               rows={4}
               placeholder="Explain why this jam cannot be approved..."
-              className="w-full text-sm border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
+              className="w-full text-sm border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
             />
             {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
             <div className="flex justify-end gap-2 mt-4">
@@ -134,7 +134,7 @@ export function PendingJamCard({ jam }: PendingJamCardProps) {
                   setError('')
                 }}
                 disabled={isPending}
-                className="px-3 py-1.5 text-xs font-medium rounded border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                className="px-3 py-1.5 text-xs font-medium rounded border text-primary hover:bg-muted disabled:opacity-50"
               >
                 Cancel
               </button>

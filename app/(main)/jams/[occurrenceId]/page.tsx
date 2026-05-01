@@ -32,44 +32,44 @@ export default async function OccurrencePage({
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
       {jam.coverImageUrl && (
-        <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gray-100">
+        <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-muted">
           <Image src={jam.coverImageUrl} alt={jam.title} fill className="object-cover" />
         </div>
       )}
 
       <div>
-        <p className="text-sm text-indigo-600 font-medium">
+        <p className="text-sm text-accent font-medium">
           {format(occurrence.date, 'EEEE, MMMM d, yyyy · h:mm a')}
           {jam.endTime && ` – ${format(jam.endTime, 'h:mm a')}`}
         </p>
-        <h1 className="text-2xl font-bold text-gray-900 mt-1">{jam.title}</h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-primary mt-1">{jam.title}</h1>
+        <p className="text-sm text-secondary mt-1">
           Hosted by{' '}
-          <Link href={`/musicians/${jam.host.id}`} className="text-indigo-600 hover:underline">
+          <Link href={`/musicians/${jam.host.id}`} className="text-accent hover:underline">
             {jam.host.name}
           </Link>
         </p>
       </div>
 
       <div className="text-sm">
-        <p className="font-medium text-gray-800">{jam.address}</p>
-        <p className="text-gray-500">{jam.city}, {jam.country}</p>
+        <p className="font-medium text-primary">{jam.address}</p>
+        <p className="text-secondary">{jam.city}, {jam.country}</p>
       </div>
 
       {jam.description && (
-        <p className="text-sm text-gray-700 whitespace-pre-wrap">{jam.description}</p>
+        <p className="text-sm text-primary whitespace-pre-wrap">{jam.description}</p>
       )}
 
       {jam.genres.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1.5">
+          <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-1.5">
             Genres
           </p>
           <div className="flex flex-wrap gap-1.5">
             {jam.genres.map((g) => (
               <span
                 key={g.genre}
-                className="text-xs bg-indigo-50 text-indigo-700 rounded-full px-2 py-0.5"
+                className="text-xs bg-muted text-accent rounded-full px-2 py-0.5"
               >
                 {g.genre}
               </span>
@@ -80,14 +80,14 @@ export default async function OccurrencePage({
 
       {jam.instrumentsNeeded.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1.5">
+          <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-1.5">
             Instruments needed
           </p>
           <div className="flex flex-wrap gap-1.5">
             {jam.instrumentsNeeded.map((i) => (
               <span
                 key={i.instrument}
-                className="text-xs bg-amber-50 text-amber-700 rounded-full px-2 py-0.5"
+                className="text-xs bg-muted text-accent-warm rounded-full px-2 py-0.5"
               >
                 {i.instrument}
               </span>
@@ -98,21 +98,21 @@ export default async function OccurrencePage({
 
       {jam.equipment.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1.5">
+          <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-1.5">
             Equipment provided
           </p>
           <ul className="space-y-1">
             {jam.equipment.map((e) => (
-              <li key={e.id} className="text-sm text-gray-700 flex items-baseline gap-2">
+              <li key={e.id} className="text-sm text-primary flex items-baseline gap-2">
                 <span>{e.item}</span>
-                {e.notes && <span className="text-xs text-gray-400">— {e.notes}</span>}
+                {e.notes && <span className="text-xs text-secondary">— {e.notes}</span>}
               </li>
             ))}
           </ul>
         </div>
       )}
 
-      <div className="border-t border-gray-100 pt-5">
+      <div className="border-t pt-5">
         <RsvpButtons
           occurrenceId={occurrence.id}
           rsvps={rsvpProps}
@@ -120,7 +120,7 @@ export default async function OccurrencePage({
         />
       </div>
 
-      <div className="border-t border-gray-100 pt-5">
+      <div className="border-t pt-5">
         <CommentThread
           occurrenceId={occurrence.id}
           comments={commentProps}
@@ -132,7 +132,7 @@ export default async function OccurrencePage({
         <div className="flex justify-end pt-2">
           <Link
             href={`/jams/${occurrence.id}/edit`}
-            className="text-sm text-indigo-600 hover:text-indigo-700 font-medium border border-indigo-200 rounded-md px-4 py-1.5 hover:bg-indigo-50 transition-colors"
+            className="text-sm text-accent hover:text-accent font-medium border rounded-md px-4 py-1.5 hover:bg-muted transition-colors"
           >
             Edit jam
           </Link>

@@ -34,8 +34,8 @@ function LoginForm() {
   }
 
   return (
-    <div className="bg-white shadow rounded-lg p-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Sign in to MundoJam</h1>
+    <div className="bg-surface shadow rounded-lg p-8">
+      <h1 className="text-2xl font-bold text-primary mb-6">Sign in to MundoJam</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
@@ -45,7 +45,7 @@ function LoginForm() {
         )}
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-primary mb-1">
             Email
           </label>
           <input
@@ -54,12 +54,12 @@ function LoginForm() {
             type="email"
             required
             autoComplete="email"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-900 mb-1">
+          <label htmlFor="password" className="block text-sm font-medium text-primary mb-1">
             Password
           </label>
           <input
@@ -68,14 +68,14 @@ function LoginForm() {
             type="password"
             required
             autoComplete="current-password"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
         <button
           type="submit"
           disabled={pending}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors"
+          className="w-full bg-accent hover:bg-accent/90 disabled:opacity-50 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors"
         >
           {pending ? 'Signing in…' : 'Sign in'}
         </button>
@@ -83,7 +83,7 @@ function LoginForm() {
 
       <p className="mt-4 text-sm text-black text-center">
         Don&apos;t have an account?{' '}
-        <Link href="/signup" className="text-indigo-600 hover:underline font-medium">
+        <Link href="/signup" className="text-accent hover:underline font-medium">
           Sign up
         </Link>
       </p>

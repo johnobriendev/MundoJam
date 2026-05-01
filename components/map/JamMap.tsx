@@ -21,11 +21,11 @@ export default function JamMap({ jams, onSelect }: JamMapProps) {
   }
 
   return (
-    <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 flex flex-col items-center justify-center p-8 text-center min-h-[280px]">
+    <div className="rounded-lg border border-dashed bg-muted flex flex-col items-center justify-center p-8 text-center min-h-[280px]">
       <div className="text-4xl mb-3">🗺️</div>
-      <p className="text-gray-500 text-sm font-medium">Map placeholder</p>
-      <p className="text-gray-400 text-xs mt-1">
-        Set <code className="bg-gray-100 px-1 rounded">NEXT_PUBLIC_USE_REAL_MAP=true</code> to enable the live map
+      <p className="text-secondary text-sm font-medium">Map placeholder</p>
+      <p className="text-secondary text-xs mt-1">
+        Set <code className="bg-muted px-1 rounded">NEXT_PUBLIC_USE_REAL_MAP=true</code> to enable the live map
       </p>
       {jams.length > 0 && (
         <ul className="mt-4 text-left w-full max-w-xs space-y-1">
@@ -33,7 +33,7 @@ export default function JamMap({ jams, onSelect }: JamMapProps) {
             <li key={jam.id}>
               <button
                 onClick={() => onSelect?.(jam.id)}
-                className="text-indigo-600 hover:underline text-sm truncate w-full text-left"
+                className="text-accent hover:underline text-sm truncate w-full text-left"
               >
                 {jam.title} — {jam.city}
               </button>

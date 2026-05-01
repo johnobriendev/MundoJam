@@ -35,7 +35,7 @@ function CheckboxGrid({
         <label key={item} className="flex items-center gap-2 text-sm cursor-pointer">
           <input
             type="checkbox"
-            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            className="rounded border text-accent focus:ring-accent"
             checked={selected.has(item)}
             onChange={() => onToggle(item)}
           />
@@ -103,7 +103,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
 
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="name" className="block text-sm font-medium text-primary mb-1">
           Name <span className="text-red-500">*</span>
         </label>
         <input
@@ -112,7 +112,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
           type="text"
           required
           defaultValue={profile.name}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
         />
         {fieldError(errors, 'name') && (
           <p className="text-xs text-red-600 mt-1">{fieldError(errors, 'name')}</p>
@@ -121,7 +121,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
 
       {/* Avatar */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Profile photo</label>
+        <label className="block text-sm font-medium text-primary mb-1">Profile photo</label>
         {profile.avatarUrl && !removeAvatar && (
           <div className="flex items-center gap-3 mb-2">
             <img
@@ -135,14 +135,14 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
                 setRemoveAvatar(true)
                 if (fileInputRef.current) fileInputRef.current.value = ''
               }}
-              className="text-xs text-gray-500 hover:text-red-600 underline"
+              className="text-xs text-secondary hover:text-red-600 underline"
             >
               Remove photo
             </button>
           </div>
         )}
         {removeAvatar && (
-          <p className="text-xs text-gray-500 mb-2">Photo will be removed on save.</p>
+          <p className="text-xs text-secondary mb-2">Photo will be removed on save.</p>
         )}
         <input
           ref={fileInputRef}
@@ -159,7 +159,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
               setRemoveAvatar(false)
             }
           }}
-          className="w-full text-sm text-gray-600 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+          className="w-full text-sm text-secondary file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:bg-muted file:text-accent hover:file:bg-muted"
         />
         {avatarTypeError && (
           <p className="text-xs text-red-600 mt-1">
@@ -173,7 +173,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
 
       {/* Bio */}
       <div>
-        <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="bio" className="block text-sm font-medium text-primary mb-1">
           Bio
         </label>
         <textarea
@@ -181,7 +181,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
           name="bio"
           rows={3}
           defaultValue={profile.bio ?? ''}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-y"
+          className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent resize-y"
           placeholder="Tell other musicians about yourself…"
         />
         {fieldError(errors, 'bio') && (
@@ -191,7 +191,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
 
       {/* City */}
       <div>
-        <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="city" className="block text-sm font-medium text-primary mb-1">
           City
         </label>
         <input
@@ -200,7 +200,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
           type="text"
           defaultValue={profile.city ?? ''}
           placeholder="Austin"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
         />
         {fieldError(errors, 'city') && (
           <p className="text-xs text-red-600 mt-1">{fieldError(errors, 'city')}</p>
@@ -209,7 +209,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
 
       {/* Skill level */}
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">Skill level</p>
+        <p className="block text-sm font-medium text-primary mb-2">Skill level</p>
         <div className="flex flex-wrap gap-4">
           {(['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'ALL_LEVELS'] as const).map((level) => (
             <label key={level} className="flex items-center gap-2 text-sm cursor-pointer">
@@ -219,7 +219,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
                 value={level}
                 checked={skillLevel === level}
                 onChange={() => setSkillLevel(level)}
-                className="text-indigo-600 focus:ring-indigo-500"
+                className="text-accent focus:ring-accent"
               />
               {SKILL_LABELS[level]}
             </label>
@@ -229,7 +229,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
 
       {/* Instruments */}
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">Instruments I play</p>
+        <p className="block text-sm font-medium text-primary mb-2">Instruments I play</p>
         <CheckboxGrid
           items={STANDARD_INSTRUMENTS}
           selected={selectedInstruments}
@@ -239,22 +239,22 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
 
       {/* Genres */}
       <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">Genres I play</p>
+        <p className="block text-sm font-medium text-primary mb-2">Genres I play</p>
         <CheckboxGrid items={STANDARD_GENRES} selected={selectedGenres} onToggle={toggleGenre} />
       </div>
 
       {/* Discoverability */}
-      <div className="rounded-lg border border-gray-200 p-4">
+      <div className="rounded-lg border p-4">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
-            className="mt-0.5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            className="mt-0.5 rounded border text-accent focus:ring-accent"
             checked={isDiscoverable}
             onChange={(e) => setIsDiscoverable(e.target.checked)}
           />
           <div>
-            <span className="text-sm font-medium text-gray-900">Appear in musician directory</span>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <span className="text-sm font-medium text-primary">Appear in musician directory</span>
+            <p className="text-xs text-secondary mt-0.5">
               Other musicians can find your profile when searching the directory.
             </p>
           </div>
@@ -265,7 +265,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
         <button
           type="submit"
           disabled={pending}
-          className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-medium py-2 px-6 rounded-md text-sm transition-colors"
+          className="bg-accent hover:bg-accent/90 disabled:opacity-50 text-white font-medium py-2 px-6 rounded-md text-sm transition-colors"
         >
           {pending ? 'Saving…' : 'Save profile'}
         </button>

@@ -43,8 +43,8 @@ export function RsvpButtons({
 
   if (!currentUserId) {
     return (
-      <p className="text-sm text-gray-500">
-        <a href="/login" className="text-indigo-600 hover:underline">
+      <p className="text-sm text-secondary">
+        <a href="/login" className="text-accent hover:underline">
           Sign in
         </a>{' '}
         to RSVP
@@ -59,8 +59,8 @@ export function RsvpButtons({
         disabled={pending}
         className={`px-4 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50 ${
           myRsvp?.status === 'GOING'
-            ? 'bg-indigo-600 text-white'
-            : 'bg-white text-indigo-600 border border-indigo-300 hover:bg-indigo-50'
+            ? 'bg-accent text-white'
+            : 'bg-surface text-accent border border-[var(--border-focus)] hover:bg-muted'
         }`}
       >
         Going{goingCount > 0 ? ` (${goingCount})` : ''}
@@ -70,8 +70,8 @@ export function RsvpButtons({
         disabled={pending}
         className={`px-4 py-2 rounded-md text-sm font-medium transition-colors disabled:opacity-50 ${
           myRsvp?.status === 'INTERESTED'
-            ? 'bg-amber-500 text-white'
-            : 'bg-white text-amber-600 border border-amber-300 hover:bg-amber-50'
+            ? 'bg-accent-warm text-white'
+            : 'bg-surface text-accent-warm border hover:bg-muted'
         }`}
       >
         Interested{interestedCount > 0 ? ` (${interestedCount})` : ''}

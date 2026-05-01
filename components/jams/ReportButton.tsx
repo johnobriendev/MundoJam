@@ -38,20 +38,20 @@ export function ReportButton({
   }
 
   if (done) {
-    return <p className="text-xs text-gray-400">Report submitted</p>
+    return <p className="text-xs text-secondary">Report submitted</p>
   }
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="text-xs text-gray-400 hover:text-red-500">
+      <button onClick={() => setOpen(true)} className="text-xs text-secondary hover:text-red-500">
         Report
       </button>
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
-            <h2 className="text-sm font-semibold text-gray-900 mb-1">Report this content</h2>
-            <p className="text-xs text-gray-500 mb-3">
+          <div className="bg-surface rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
+            <h2 className="text-sm font-semibold text-primary mb-1">Report this content</h2>
+            <p className="text-xs text-secondary mb-3">
               Describe why this should be reviewed by an admin.
             </p>
             <textarea
@@ -62,7 +62,7 @@ export function ReportButton({
               }}
               rows={4}
               placeholder="Explain the issue..."
-              className="w-full text-sm border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
+              className="w-full text-sm border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
             />
             {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
             <div className="flex justify-end gap-2 mt-4">
@@ -73,7 +73,7 @@ export function ReportButton({
                   setError('')
                 }}
                 disabled={isPending}
-                className="px-3 py-1.5 text-xs font-medium rounded border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                className="px-3 py-1.5 text-xs font-medium rounded border text-primary hover:bg-muted disabled:opacity-50"
               >
                 Cancel
               </button>

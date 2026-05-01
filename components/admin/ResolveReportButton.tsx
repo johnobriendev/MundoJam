@@ -18,7 +18,7 @@ export function ResolveReportButton({ reportId }: { reportId: string }) {
     <button
       onClick={handleResolve}
       disabled={isPending}
-      className="shrink-0 px-3 py-1.5 text-xs font-medium rounded bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50"
+      className="shrink-0 px-3 py-1.5 text-xs font-medium rounded bg-muted text-primary hover:bg-muted disabled:opacity-50"
     >
       Resolve
     </button>

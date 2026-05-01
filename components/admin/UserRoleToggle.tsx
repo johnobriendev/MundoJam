@@ -32,7 +32,7 @@ export function UserRoleToggle({
     <div className="flex items-center gap-2 shrink-0">
       <span
         className={`text-xs font-medium px-1.5 py-0.5 rounded ${
-          role === 'ADMIN' ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-100 text-gray-600'
+          role === 'ADMIN' ? 'bg-muted text-accent' : 'bg-muted text-secondary'
         }`}
       >
         {role}
@@ -40,7 +40,7 @@ export function UserRoleToggle({
       <button
         onClick={() => handleChange(role === 'ADMIN' ? 'USER' : 'ADMIN')}
         disabled={isPending}
-        className="text-xs text-gray-400 hover:text-gray-700 disabled:opacity-50"
+        className="text-xs text-secondary hover:text-primary disabled:opacity-50"
       >
         {role === 'ADMIN' ? 'Revoke admin' : 'Make admin'}
       </button>

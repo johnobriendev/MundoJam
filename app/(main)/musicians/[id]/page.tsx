@@ -45,8 +45,8 @@ export default async function MusicianProfilePage({
             className="w-20 h-20 rounded-full object-cover shrink-0"
           />
         ) : (
-          <div className="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center shrink-0">
-            <span className="text-indigo-600 font-bold text-3xl">
+          <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center shrink-0">
+            <span className="text-accent font-bold text-3xl">
               {user.name.charAt(0).toUpperCase()}
             </span>
           </div>
@@ -54,13 +54,13 @@ export default async function MusicianProfilePage({
 
         <div className="flex-1">
           <div className="flex items-center justify-between gap-4">
-            <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
+            <h1 className="text-2xl font-bold text-primary">{user.name}</h1>
             {currentUser && currentUser.id !== id && (
               <FollowButton profileUserId={id} initialIsFollowing={following} />
             )}
           </div>
-          {user.city && <p className="text-gray-500 mt-0.5">{user.city}</p>}
-          <span className="inline-block mt-1 text-xs bg-gray-100 text-gray-600 rounded-full px-2 py-0.5">
+          {user.city && <p className="text-secondary mt-0.5">{user.city}</p>}
+          <span className="inline-block mt-1 text-xs bg-muted text-secondary rounded-full px-2 py-0.5">
             {SKILL_LABELS[user.skillLevel] ?? user.skillLevel}
           </span>
         </div>
@@ -69,24 +69,24 @@ export default async function MusicianProfilePage({
       {/* Bio */}
       {user.bio && (
         <section>
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
+          <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-2">
             About
           </h2>
-          <p className="text-gray-700 whitespace-pre-line">{user.bio}</p>
+          <p className="text-primary whitespace-pre-line">{user.bio}</p>
         </section>
       )}
 
       {/* Instruments */}
       {user.instruments.length > 0 && (
         <section>
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
+          <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-2">
             Instruments
           </h2>
           <div className="flex flex-wrap gap-2">
             {user.instruments.map((i) => (
               <span
                 key={i.instrument}
-                className="text-sm bg-indigo-50 text-indigo-700 rounded-full px-3 py-0.5"
+                className="text-sm bg-muted text-accent rounded-full px-3 py-0.5"
               >
                 {i.instrument}
               </span>
@@ -98,7 +98,7 @@ export default async function MusicianProfilePage({
       {/* Genres */}
       {user.genres.length > 0 && (
         <section>
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">
+          <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-2">
             Genres
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -117,7 +117,7 @@ export default async function MusicianProfilePage({
       {/* Upcoming hosted jams */}
       {hostedOccurrences.length > 0 && (
         <section>
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+          <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
             Hosting upcoming
           </h2>
           <div className="space-y-2">
@@ -125,13 +125,13 @@ export default async function MusicianProfilePage({
               <Link
                 key={occ.id}
                 href={`/jams/${occ.id}`}
-                className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 hover:border-indigo-300 hover:shadow-sm transition-all"
+                className="flex items-center justify-between rounded-lg border bg-surface px-4 py-3 hover:border-[var(--border-focus)] hover:shadow-sm transition-all"
               >
                 <div>
-                  <p className="font-medium text-gray-900">{occ.jam.title}</p>
-                  <p className="text-sm text-gray-500">{occ.jam.city}</p>
+                  <p className="font-medium text-primary">{occ.jam.title}</p>
+                  <p className="text-sm text-secondary">{occ.jam.city}</p>
                 </div>
-                <p className="text-xs text-indigo-600 font-medium whitespace-nowrap">
+                <p className="text-xs text-accent font-medium whitespace-nowrap">
                   {format(occ.date, 'EEE, MMM d, yyyy')}
                 </p>
               </Link>
@@ -143,7 +143,7 @@ export default async function MusicianProfilePage({
       {/* Upcoming attending jams */}
       {attendingOccurrences.length > 0 && (
         <section>
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+          <h2 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
             Attending upcoming
           </h2>
           <div className="space-y-2">
@@ -151,15 +151,15 @@ export default async function MusicianProfilePage({
               <Link
                 key={occ.id}
                 href={`/jams/${occ.id}`}
-                className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 hover:border-indigo-300 hover:shadow-sm transition-all"
+                className="flex items-center justify-between rounded-lg border bg-surface px-4 py-3 hover:border-[var(--border-focus)] hover:shadow-sm transition-all"
               >
                 <div>
-                  <p className="font-medium text-gray-900">{occ.jam.title}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="font-medium text-primary">{occ.jam.title}</p>
+                  <p className="text-sm text-secondary">
                     {occ.jam.city} · hosted by {occ.jam.host.name}
                   </p>
                 </div>
-                <p className="text-xs text-indigo-600 font-medium whitespace-nowrap">
+                <p className="text-xs text-accent font-medium whitespace-nowrap">
                   {format(occ.date, 'EEE, MMM d, yyyy')}
                 </p>
               </Link>
@@ -169,7 +169,7 @@ export default async function MusicianProfilePage({
       )}
 
       {hostedOccurrences.length === 0 && attendingOccurrences.length === 0 && (
-        <p className="text-gray-500 text-sm">No upcoming jam activity.</p>
+        <p className="text-secondary text-sm">No upcoming jam activity.</p>
       )}
     </div>
   )

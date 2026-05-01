@@ -47,13 +47,13 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Sea
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-primary">
             Upcoming jams{occurrences.length > 0 ? ` (${occurrences.length})` : ''}
           </h2>
           {occurrences.length === 0 ? (
-            <p className="text-gray-500 text-sm">
+            <p className="text-secondary text-sm">
               No upcoming jams match your filters.{' '}
-              <a href="/jams/new" className="text-indigo-600 hover:underline">
+              <a href="/jams/new" className="text-accent hover:underline">
                 Host one!
               </a>
             </p>

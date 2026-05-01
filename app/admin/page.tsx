@@ -13,9 +13,9 @@ export default async function AdminPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-gray-900 mb-4">Pending Jams</h1>
+      <h1 className="text-xl font-semibold text-primary mb-4">Pending Jams</h1>
       {pending.length === 0 ? (
-        <p className="text-sm text-gray-500">No pending jams — all caught up.</p>
+        <p className="text-sm text-secondary">No pending jams — all caught up.</p>
       ) : (
         <div className="space-y-3">
           {pending.map((jam) => (

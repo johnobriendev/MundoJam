@@ -12,7 +12,7 @@ export function JamAdminActions({ jamId, status }: { jamId: string; status: stri
 
   if (status !== 'PENDING') {
     return (
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-secondary">
         This jam has already been{' '}
         <span className="font-medium">{status.toLowerCase()}</span>.
       </p>
@@ -62,9 +62,9 @@ export function JamAdminActions({ jamId, status }: { jamId: string; status: stri
 
       {rejectOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
-            <h2 className="text-sm font-semibold text-gray-900 mb-1">Reject this jam</h2>
-            <p className="text-xs text-gray-500 mb-3">
+          <div className="bg-surface rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
+            <h2 className="text-sm font-semibold text-primary mb-1">Reject this jam</h2>
+            <p className="text-xs text-secondary mb-3">
               The host will receive an email with this reason and a link to resubmit.
             </p>
             <textarea
@@ -75,7 +75,7 @@ export function JamAdminActions({ jamId, status }: { jamId: string; status: stri
               }}
               rows={4}
               placeholder="Explain why this jam cannot be approved..."
-              className="w-full text-sm border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
+              className="w-full text-sm border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
             />
             {error && <p className="text-xs text-red-600 mt-1">{error}</p>}
             <div className="flex justify-end gap-2 mt-4">
@@ -86,7 +86,7 @@ export function JamAdminActions({ jamId, status }: { jamId: string; status: stri
                   setError('')
                 }}
                 disabled={isPending}
-                className="px-3 py-1.5 text-xs font-medium rounded border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                className="px-3 py-1.5 text-xs font-medium rounded border text-primary hover:bg-muted disabled:opacity-50"
               >
                 Cancel
               </button>

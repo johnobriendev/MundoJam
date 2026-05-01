@@ -9,12 +9,12 @@ export default async function FollowingPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-bold text-gray-900 mb-8">Following</h1>
+      <h1 className="text-2xl font-bold text-primary mb-8">Following</h1>
 
       {occurrences.length === 0 ? (
-        <div className="text-center py-20 text-gray-500">
+        <div className="text-center py-20 text-secondary">
           <p className="mb-4">No upcoming jams from people you follow.</p>
-          <Link href="/musicians" className="text-indigo-600 hover:underline text-sm">
+          <Link href="/musicians" className="text-accent hover:underline text-sm">
             Discover musicians to follow
           </Link>
         </div>

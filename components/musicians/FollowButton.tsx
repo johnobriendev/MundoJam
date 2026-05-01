@@ -30,8 +30,8 @@ export function FollowButton({
       disabled={pending}
       className={
         isFollowing
-          ? 'text-sm border border-gray-300 rounded-full px-4 py-1.5 text-gray-700 hover:border-red-300 hover:text-red-600 transition-colors disabled:opacity-50'
-          : 'text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-full px-4 py-1.5 transition-colors disabled:opacity-50'
+          ? 'text-sm border rounded-full px-4 py-1.5 text-primary hover:border-red-300 hover:text-red-600 transition-colors disabled:opacity-50'
+          : 'text-sm bg-accent hover:bg-accent/90 text-white rounded-full px-4 py-1.5 transition-colors disabled:opacity-50'
       }
     >
       {isFollowing ? 'Following' : 'Follow'}

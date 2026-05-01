@@ -24,13 +24,13 @@ export default async function AdminJamPage({ params }: { params: Promise<{ id: s
     PENDING: 'bg-yellow-100 text-yellow-800',
     APPROVED: 'bg-green-100 text-green-800',
     REJECTED: 'bg-red-100 text-red-800',
-    CANCELLED: 'bg-gray-100 text-gray-600',
+    CANCELLED: 'bg-muted text-secondary',
   }
 
   return (
     <div className="max-w-2xl space-y-6">
       <div className="flex items-center gap-3">
-        <Link href="/admin" className="text-xs text-gray-400 hover:text-gray-600">
+        <Link href="/admin" className="text-xs text-secondary hover:text-primary">
           &larr; Pending queue
         </Link>
         <span
@@ -41,36 +41,36 @@ export default async function AdminJamPage({ params }: { params: Promise<{ id: s
       </div>
 
       {jam.coverImageUrl && (
-        <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100">
+        <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-muted">
           <Image src={jam.coverImageUrl} alt={jam.title} fill className="object-cover" />
         </div>
       )}
 
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">{jam.title}</h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-primary">{jam.title}</h1>
+        <p className="text-sm text-secondary mt-1">
           Submitted by{' '}
-          <span className="font-medium text-gray-700">{jam.host.name}</span>{' '}
+          <span className="font-medium text-primary">{jam.host.name}</span>{' '}
           ({jam.host.email})
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 text-sm">
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Location</p>
-          <p className="text-gray-800">{jam.address}</p>
-          <p className="text-gray-500">{jam.city}, {jam.country}</p>
+          <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-0.5">Location</p>
+          <p className="text-primary">{jam.address}</p>
+          <p className="text-secondary">{jam.city}, {jam.country}</p>
         </div>
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-0.5">Schedule</p>
-          <p className="text-gray-800">
+          <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-0.5">Schedule</p>
+          <p className="text-primary">
             {jam.recurrenceType === 'ONE_TIME'
               ? 'One-time'
               : jam.recurrenceType === 'WEEKLY'
                 ? 'Weekly'
                 : 'Monthly'}
           </p>
-          <p className="text-gray-500">
+          <p className="text-secondary">
             {format(new Date(jam.startDate), 'MMM d, yyyy')}
             {jam.endDate && ` – ${format(new Date(jam.endDate), 'MMM d, yyyy')}`}
           </p>
@@ -78,18 +78,18 @@ export default async function AdminJamPage({ params }: { params: Promise<{ id: s
       </div>
 
       <div>
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Description</p>
-        <p className="text-sm text-gray-700 whitespace-pre-wrap">{jam.description}</p>
+        <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-1">Description</p>
+        <p className="text-sm text-primary whitespace-pre-wrap">{jam.description}</p>
       </div>
 
       {jam.genres.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Genres</p>
+          <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-1">Genres</p>
           <div className="flex flex-wrap gap-1.5">
             {jam.genres.map((g) => (
               <span
                 key={g.genre}
-                className="inline-block px-2 py-0.5 text-xs bg-indigo-50 text-indigo-700 rounded"
+                className="inline-block px-2 py-0.5 text-xs bg-muted text-accent rounded"
               >
                 {g.genre}
               </span>
@@ -100,14 +100,14 @@ export default async function AdminJamPage({ params }: { params: Promise<{ id: s
 
       {jam.instrumentsNeeded.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+          <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-1">
             Instruments needed
           </p>
           <div className="flex flex-wrap gap-1.5">
             {jam.instrumentsNeeded.map((i) => (
               <span
                 key={i.instrument}
-                className="inline-block px-2 py-0.5 text-xs bg-amber-50 text-amber-700 rounded"
+                className="inline-block px-2 py-0.5 text-xs bg-muted text-accent-warm rounded"
               >
                 {i.instrument}
               </span>
@@ -118,21 +118,21 @@ export default async function AdminJamPage({ params }: { params: Promise<{ id: s
 
       {jam.equipment.length > 0 && (
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+          <p className="text-xs font-semibold text-secondary uppercase tracking-wide mb-1">
             Equipment provided
           </p>
           <ul className="space-y-1">
             {jam.equipment.map((e) => (
-              <li key={e.id} className="text-sm text-gray-700">
+              <li key={e.id} className="text-sm text-primary">
                 {e.item}
-                {e.notes && <span className="text-gray-400 ml-2 text-xs">— {e.notes}</span>}
+                {e.notes && <span className="text-secondary ml-2 text-xs">— {e.notes}</span>}
               </li>
             ))}
           </ul>
         </div>
       )}
 
-      <div className="border border-gray-200 rounded-lg p-3 bg-gray-50 text-xs text-gray-500">
+      <div className="border rounded-lg p-3 bg-muted text-xs text-secondary">
         <p>Map pin preview: {jam.lat.toFixed(5)}, {jam.lng.toFixed(5)}</p>
       </div>
 
@@ -143,7 +143,7 @@ export default async function AdminJamPage({ params }: { params: Promise<{ id: s
         </div>
       )}
 
-      <div className="pt-2 border-t border-gray-200">
+      <div className="pt-2 border-t">
         <JamAdminActions jamId={jam.id} status={jam.status} />
       </div>
     </div>
