@@ -45,6 +45,11 @@ export default function JamFilters() {
     city ||
     country
 
+  const todayStr = new Date().toISOString().slice(0, 10)
+  const isPastPage = pathname === '/past-jams'
+  const dateFromValue = dateFrom || (!isPastPage ? todayStr : '')
+  const dateToValue = dateTo || (isPastPage ? todayStr : '')
+
   const chipClass = (active: boolean) =>
     `text-xs rounded-full px-1.5 py-0.5 border transition-colors cursor-pointer ${
       active
@@ -87,18 +92,24 @@ export default function JamFilters() {
 
       {/* Date range */}
       <div className="grid grid-cols-2 gap-2">
-        <input
-          type="date"
-          value={dateFrom}
-          onChange={(e) => push({ dateFrom: e.target.value })}
-          className="w-full border rounded-md px-2 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
-        />
-        <input
-          type="date"
-          value={dateTo}
-          onChange={(e) => push({ dateTo: e.target.value })}
-          className="w-full border rounded-md px-2 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
-        />
+        <div className="space-y-0.5">
+          <label className="text-xs text-secondary font-medium">From</label>
+          <input
+            type="date"
+            value={dateFromValue}
+            onChange={(e) => push({ dateFrom: e.target.value })}
+            className="w-full border rounded-md px-2 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
+          />
+        </div>
+        <div className="space-y-0.5">
+          <label className="text-xs text-secondary font-medium">To</label>
+          <input
+            type="date"
+            value={dateToValue}
+            onChange={(e) => push({ dateTo: e.target.value })}
+            className="w-full border rounded-md px-2 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
+          />
+        </div>
       </div>
 
       {/* Genres */}

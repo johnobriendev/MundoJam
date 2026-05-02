@@ -37,9 +37,14 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Sea
       </Suspense>
 
       <div className="space-y-3">
-        <h2 className="text-lg font-semibold text-primary">
-          Upcoming jams{occurrences.length > 0 ? ` (${occurrences.length})` : ''}
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-primary">
+            Upcoming jams{occurrences.length > 0 ? ` (${occurrences.length})` : ''}
+          </h2>
+          <a href="/past-jams" className="text-sm text-accent hover:underline">
+            Past jams →
+          </a>
+        </div>
         {occurrences.length === 0 ? (
           <p className="text-secondary text-sm">
             No upcoming jams match your filters.{' '}
