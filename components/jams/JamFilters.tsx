@@ -64,7 +64,7 @@ export default function JamFilters() {
           type="text"
           defaultValue={city}
           placeholder="City"
-          className="flex-1 border rounded-md px-2.5 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
+          className="flex-1 min-w-0 border rounded-md px-2.5 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
           onBlur={(e) => push({ city: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === 'Enter') push({ city: (e.target as HTMLInputElement).value })
@@ -74,7 +74,7 @@ export default function JamFilters() {
           type="text"
           defaultValue={country}
           placeholder="Country"
-          className="flex-1 border rounded-md px-2.5 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
+          className="flex-1 min-w-0 border rounded-md px-2.5 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
           onBlur={(e) => push({ country: e.target.value })}
           onKeyDown={(e) => {
             if (e.key === 'Enter') push({ country: (e.target as HTMLInputElement).value })
@@ -92,7 +92,7 @@ export default function JamFilters() {
 
       {/* Date range */}
       <div className="grid grid-cols-2 gap-2">
-        <div className="space-y-0.5">
+        <div className="min-w-0 space-y-0.5">
           <label className="text-xs text-secondary font-medium">From</label>
           <input
             type="date"
@@ -101,7 +101,7 @@ export default function JamFilters() {
             className="w-full border rounded-md px-2 py-1 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
-        <div className="space-y-0.5">
+        <div className="min-w-0 space-y-0.5">
           <label className="text-xs text-secondary font-medium">To</label>
           <input
             type="date"
