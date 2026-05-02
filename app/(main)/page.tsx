@@ -2,6 +2,8 @@ import { Suspense } from 'react'
 import JamCard from '@/components/jams/JamCard'
 import JamFilters from '@/components/jams/JamFilters'
 import { getJams } from '@/lib/jams/getJams'
+import HeroSection from '@/components/HeroSection'
+import { getCurrentUser } from '@/lib/session'
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
@@ -18,6 +20,7 @@ function toDate(v: string | string[] | undefined): Date | undefined {
 
 export default async function DiscoverPage({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams
+  const user = await getCurrentUser()
 
   const occurrences = await getJams({
     genres: toArray(params.genre),
@@ -31,6 +34,8 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Sea
   })
 
   return (
+    <>
+    <HeroSection initialAuthenticated={!!user} />
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
       <Suspense fallback={null}>
         <JamFilters />
@@ -59,5 +64,6 @@ export default async function DiscoverPage({ searchParams }: { searchParams: Sea
         )}
       </div>
     </div>
+    </>
   )
 }
