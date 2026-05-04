@@ -1,3 +1,4 @@
+import { MobileMenu } from '@/components/MobileMenu'
 import { SessionProvider } from '@/components/SessionProvider'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { getCurrentUser } from '@/lib/session'
@@ -13,7 +14,7 @@ async function Nav() {
           MundoJam
         </Link>
 
-        <div className="flex items-center gap-4 text-sm">
+        <div className="hidden md:flex items-center gap-4 text-sm">
           <Link href="/" className="text-secondary hover:text-primary">
             Discover
           </Link>
@@ -61,6 +62,11 @@ async function Nav() {
             </>
           )}
           <ThemeToggle />
+        </div>
+
+        <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
+          <MobileMenu isSignedIn={!!user} isAdmin={user?.role === 'ADMIN'} />
         </div>
       </div>
     </nav>
