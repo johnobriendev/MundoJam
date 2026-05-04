@@ -75,7 +75,7 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
   const errors = state.errors
 
   return (
-    <form action={action} encType="multipart/form-data" className="space-y-8">
+    <form action={action} className="space-y-8">
       <input type="hidden" name="instrumentsJson" value={JSON.stringify([...selectedInstruments])} />
       <input type="hidden" name="genresJson" value={JSON.stringify([...selectedGenres])} />
       <input type="hidden" name="isDiscoverable" value={String(isDiscoverable)} />
