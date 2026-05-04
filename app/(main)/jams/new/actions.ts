@@ -7,8 +7,6 @@ import { geocodeAddress } from '@/lib/geocoding'
 import { createJam } from '@/lib/jams/createJam'
 import { jamSchema, type JamFormState } from '@/lib/jams/jamSchema'
 
-export type { JamFormState }
-export type SubmitJamState = JamFormState
 
 export async function submitJam(
   _prevState: JamFormState,
