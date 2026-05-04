@@ -78,6 +78,23 @@ docker compose stop    # stop the db when done
 | `npx prisma migrate dev` | Apply pending migrations (or create a new one) |
 | `npx prisma db seed` | Re-run the base seed (admin account) |
 | `npx ts-node -P prisma/tsconfig.json prisma/seed-demo.ts` | Seed demo users, jams, and RSVPs |
+
+### Seed credentials
+
+**Admin** (created by `prisma db seed`):
+| Email | Password |
+|-------|----------|
+| `admin@mundojam.com` | `admin123` |
+
+**Demo users** (created by `seed-demo.ts`) — all share password `demo1234`:
+| Email |
+|-------|
+| `marco@demo.com` |
+| `sofia@demo.com` |
+| `luca@demo.com` |
+| `amara@demo.com` |
+| `yuki@demo.com` |
+| `elena@demo.com` |
 | `npx prisma migrate reset` | Drop all data and re-apply migrations |
 | `npx prisma studio` | Open a visual database browser |
 
