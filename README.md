@@ -13,12 +13,15 @@ A platform for discovering and hosting music jam sessions.
 # 1. Install dependencies
 npm install
 
-# 2. Create your local env file and fill in NEXTAUTH_SECRET
-cp .env.example .env.local
-openssl rand -base64 32   # paste the output as NEXTAUTH_SECRET in .env.local
+# 2. Create your env files
+cp .env.example .env          # used by Prisma (prisma.config.ts loads .env)
+cp .env.example .env.local    # used by Next.js at runtime
+
+# Generate a secret and set NEXTAUTH_SECRET in both files
+openssl rand -base64 32
 
 # 3. Start the database
-docker-compose up -d
+docker compose up -d
 
 # 4. Apply database migrations
 npx prisma migrate dev
@@ -34,15 +37,36 @@ Open [http://localhost:3000](http://localhost:3000).
 
 **Default admin credentials** (created by the seed): `admin@mundojam.com` / `admin123`
 
+> **Note:** Two env files are needed because Prisma reads `.env` directly (via `dotenv` in `prisma.config.ts`) while Next.js reads `.env.local`. Keep `DATABASE_URL` and `NEXTAUTH_SECRET` in sync between them.
+
+## Demo / rich seed data
+
+To populate the database with a set of realistic demo users, jams, and RSVPs (useful for UI development and demos):
+
+```bash
+# Make sure the database is running and migrations are applied first, then:
+npx ts-node -P prisma/tsconfig.json prisma/seed-demo.ts
+```
+
+This is additive — it layers demo content on top of the admin account created by `npx prisma db seed`. Run the base seed first if starting fresh.
+
+To reset and reseed from scratch:
+
+```bash
+npx prisma migrate reset          # drops all data and re-applies migrations
+npx prisma db seed                # recreates the admin account
+npx ts-node -P prisma/tsconfig.json prisma/seed-demo.ts
+```
+
 ## Daily workflow
 
 ```bash
-docker-compose start   # start the db
+docker compose start   # start the db
 npm run dev            # start Next.js on :3000
-docker-compose stop    # stop the db when done
+docker compose stop    # stop the db when done
 ```
 
-> **Warning:** Never run `docker-compose down -v` — the `-v` flag destroys the database volume and you will lose all local data.
+> **Warning:** Never run `docker compose down -v` — the `-v` flag destroys the database volume and you will lose all local data.
 
 ## Scripts
 
@@ -52,7 +76,9 @@ docker-compose stop    # stop the db when done
 | `npm run build` | Production build |
 | `npm run lint` | Run ESLint |
 | `npx prisma migrate dev` | Apply pending migrations (or create a new one) |
-| `npx prisma db seed` | Re-run the database seed |
+| `npx prisma db seed` | Re-run the base seed (admin account) |
+| `npx ts-node -P prisma/tsconfig.json prisma/seed-demo.ts` | Seed demo users, jams, and RSVPs |
+| `npx prisma migrate reset` | Drop all data and re-apply migrations |
 | `npx prisma studio` | Open a visual database browser |
 
 ## Environment variables
