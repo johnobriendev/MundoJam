@@ -105,13 +105,19 @@ Modified files:
 
 **Email Verification — deferred.** Not blocking for v1; users can browse without it. Add later if spam/abuse becomes an issue.
 
-### 2d. Real Map (Mapbox) — future work, keep stub for now
-When ready, this will require:
-- A Mapbox account + token (`NEXT_PUBLIC_MAPBOX_TOKEN`)
-- Replace `lib/geocoding.ts` stub with real Mapbox Geocoding API call
-- Replace map stub component with `react-map-gl` (wrapper for Mapbox GL JS); must use `dynamic(() => import(...), { ssr: false })` in Next.js
-- Add jam-pin markers from occurrence coords
-- Before implementing: read `node_modules/next/dist/docs/` (per AGENTS.md) to confirm dynamic import pattern
+### 2d. Real Map (Mapbox)
+**Scope:** single-pin map on the jam detail page only. No map on the discover/homepage.
+
+**Why:** map loads only trigger when a user clicks into a specific jam, not on every discover page visit. Keeps API usage low. Location-based discovery is handled by the existing city text filter.
+
+**What's needed:**
+- `NEXT_PUBLIC_MAPBOX_TOKEN` — public token (`pk.*`) from account.mapbox.com
+- Replace `lib/geocoding.ts` stub with real Mapbox Geocoding API call (already structured, just flip `USE_REAL_MAP=true`)
+- Remove `JamMap` and `pins` from `app/(main)/page.tsx`; collapse discover page to single-column layout
+- New `JamDetailMap` component (single-pin, no `onSelect`): `react-map-gl` wrapper for Mapbox GL JS; must use `dynamic(() => import(...), { ssr: false })` in Next.js
+- Add `<JamDetailMap lat={jam.lat} lng={jam.lng} />` below the address block in `app/(main)/jams/[occurrenceId]/page.tsx`
+
+**Free tier:** 50,000 map loads/month. Set a billing alert at 80% in the Mapbox dashboard — no in-app cap needed at this stage.
 
 ### 2e. Vercel Deployment
 1. Push to GitHub
@@ -138,3 +144,103 @@ When ready, this will require:
 
 ## Unresolved Questions
 - Resend domain: need a custom domain for prod `from` address (DNS records in Resend dashboard). Use Resend's shared domain for now; revisit when domain is acquired.
+
+---
+
+## Part 3: Remove SkillLevel
+
+Skill level is too blunt a concept — users can describe their level in the jam description instead.
+
+### Schema (`prisma/schema.prisma`)
+- Remove `enum SkillLevel { ... }`
+- Remove `skillLevel SkillLevel @default(ALL_LEVELS)` from `User` model
+- Run `prisma migrate dev --name remove_skill_level`
+
+### Files to modify
+
+| File | Change |
+|------|--------|
+| `prisma/seed-demo.ts` | Remove `skillLevel` from all user seeds |
+| `lib/users/getMusicians.ts` | Remove `skillLevel` from `MusicianFiltersInput`, `VALID_SKILL`, query `where`, and `select` |
+| `lib/users/updateProfile.ts` | Remove `skillLevel` from type definition |
+| `lib/users/getUser.ts` | Remove `skillLevel` from both `select` blocks |
+| `app/(main)/profile/actions.ts` | Remove `skillLevel` from zod schema, formData parse, validated destructure, and DB update |
+| `app/(main)/musicians/page.tsx` | Remove `skillLevel` from search params pass-through |
+| `app/(main)/musicians/[id]/page.tsx` | Remove `SKILL_LABELS` const and the skill level badge span |
+| `components/profile/ProfileForm.tsx` | Remove `skillLevel` state, the radio button section, and its label |
+| `components/musicians/MusicianCard.tsx` | Remove `SKILL_LABELS` const and the skill level badge span |
+| `components/musicians/MusicianFilters.tsx` | Remove `skillLevel` state, the `<select>` element, and its inclusion in `hasFilters` |
+
+### Verify
+- Musicians page loads — no skill level filter, no skill badge on cards
+- Profile edit page — no skill level section
+- Musician detail page — no skill badge
+
+---
+
+## Part 4: Dashboard Enhancements
+
+Add a profile sidebar and persistent Vanta Halo background to the logged-in dashboard.
+
+### Layout
+
+**Desktop (`lg:` ≥1024px) — authenticated users only**
+```
+[Profile sidebar] [Filters + Jams]
+     14rem             flex-1
+```
+Container: `max-w-4xl mx-auto px-4 py-6` → `lg:flex lg:gap-6 lg:items-start`
+Profile sidebar: `w-56 shrink-0 sticky top-6`
+
+**Mobile (<1024px):** sidebar hidden (`hidden lg:block`), single-column as today.
+**Unauthenticated:** unchanged (hero + single-column).
+
+### New files
+
+**`lib/users/getUserProfile.ts`**
+```ts
+prisma.user.findUnique({
+  where: { id },
+  select: { id, name, avatarUrl, city,
+    instruments: { select: { instrument: true } } }
+})
+```
+
+**`components/dashboard/ProfileSidebar.tsx`** (server component)
+Sticky card:
+- 64px rounded avatar or initial fallback (same pattern as `MusicianCard`)
+- Name, city (if set), first 4 instrument tags
+- "View profile" → `/musicians/{id}`, "Edit profile" → `/profile`
+- Styling: `rounded-lg border bg-surface p-4`
+
+**`components/dashboard/DashboardVanta.tsx`** (client component)
+Fixed background halo, auth users only.
+
+Technique: `position: fixed; inset: 0; z-index: -1; pointer-events: none` at `opacity: 0.35`. `backgroundColor` matches `--bg-base` exactly so only the colored glow shows; `bg-surface` cards remain fully opaque and readable.
+
+```ts
+{
+  backgroundColor: theme === 'dark' ? 0x0f0f13 : 0xf6f3f1,
+  baseColor: theme === 'dark' ? 0x7c3aed : 0xc2410c,
+  size: isMobile ? 0.45 : 0.75,
+  amplitudeFactor: 0.7,
+  xOffset: 0,
+  yOffset: 0,
+}
+```
+Same init/destroy/re-init + theme/mobile pattern as `components/HeroSection.tsx`.
+
+### Modified files
+
+**`app/(main)/page.tsx`**
+- Fetch `getUserProfile(user.id)` when authenticated
+- Render `<DashboardVanta />` for auth users (fixed background)
+- Auth layout: `max-w-4xl` flex row — `<ProfileSidebar>` + center column
+- Unauth layout: unchanged
+
+### Verify
+1. Log in → profile sidebar visible on desktop, hidden on mobile
+2. Vanta halo glows behind content while scrolling
+3. Cards (`bg-surface`) fully readable over halo
+4. Log out → hero Vanta shows, dashboard Vanta gone
+5. Theme switch → halo color updates (dark=purple, light=orange)
