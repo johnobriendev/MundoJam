@@ -54,7 +54,7 @@ function LoginForm() {
             type="email"
             required
             autoComplete="email"
-            className="w-full border rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -68,7 +68,7 @@ function LoginForm() {
             type="password"
             required
             autoComplete="current-password"
-            className="w-full border rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -81,7 +81,7 @@ function LoginForm() {
         </button>
       </form>
 
-      <p className="mt-4 text-sm text-black text-center">
+      <p className="mt-4 text-sm text-primary text-center">
         Don&apos;t have an account?{' '}
         <Link href="/signup" className="text-accent hover:underline font-medium">
           Sign up

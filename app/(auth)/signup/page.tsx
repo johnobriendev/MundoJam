@@ -57,7 +57,7 @@ export default function SignupPage() {
             type="text"
             required
             autoComplete="name"
-            className="w-full border rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -71,7 +71,7 @@ export default function SignupPage() {
             type="email"
             required
             autoComplete="email"
-            className="w-full border rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
 
@@ -86,9 +86,9 @@ export default function SignupPage() {
             required
             minLength={8}
             autoComplete="new-password"
-            className="w-full border rounded-md px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full border rounded-md px-3 py-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-accent"
           />
-          <p className="mt-1 text-xs text-black">At least 8 characters</p>
+          <p className="mt-1 text-xs text-primary">At least 8 characters</p>
         </div>
 
         <button
@@ -100,7 +100,7 @@ export default function SignupPage() {
         </button>
       </form>
 
-      <p className="mt-4 text-sm text-black text-center">
+      <p className="mt-4 text-sm text-primary text-center">
         Already have an account?{' '}
         <Link href="/login" className="text-accent hover:underline font-medium">
           Sign in
