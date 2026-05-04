@@ -6,13 +6,10 @@ import { uploadFile } from '@/lib/storage'
 import { geocodeCity } from '@/lib/geocoding'
 import { updateProfile } from '@/lib/users/updateProfile'
 
-const VALID_SKILL = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'ALL_LEVELS'] as const
-
 const profileSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100, 'Name is too long'),
   bio: z.string().max(1000, 'Bio is too long').optional(),
   city: z.string().max(100, 'City is too long').optional(),
-  skillLevel: z.enum(VALID_SKILL),
   isDiscoverable: z.boolean(),
   instruments: z.array(z.string().min(1)),
   genres: z.array(z.string().min(1)),
@@ -43,7 +40,6 @@ export async function updateProfileAction(
     name: formData.get('name'),
     bio: (formData.get('bio') as string) || undefined,
     city: (formData.get('city') as string) || undefined,
-    skillLevel: formData.get('skillLevel'),
     isDiscoverable: formData.get('isDiscoverable') === 'true',
     instruments,
     genres,
@@ -53,7 +49,7 @@ export async function updateProfileAction(
     return { errors: validated.error.flatten().fieldErrors as Record<string, string[]> }
   }
 
-  const { name, bio, city, skillLevel, isDiscoverable } = validated.data
+  const { name, bio, city, isDiscoverable } = validated.data
 
   const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif']
 
@@ -88,7 +84,6 @@ export async function updateProfileAction(
     city,
     lat,
     lng,
-    skillLevel,
     isDiscoverable,
     instruments: validated.data.instruments,
     genres: validated.data.genres,

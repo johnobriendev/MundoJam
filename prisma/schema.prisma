@@ -12,13 +12,6 @@ enum Role {
   ADMIN
 }
 
-enum SkillLevel {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-  ALL_LEVELS
-}
-
 enum RecurrenceType {
   ONE_TIME
   WEEKLY
@@ -60,7 +53,6 @@ model User {
   lng            Float?
   isDiscoverable Boolean    @default(true)
   role           Role       @default(USER)
-  skillLevel     SkillLevel @default(ALL_LEVELS)
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
 

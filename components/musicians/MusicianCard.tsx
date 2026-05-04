@@ -1,13 +1,6 @@
 import Link from 'next/link'
 import type { MusicianSummary } from '@/lib/users/getMusicians'
 
-const SKILL_LABELS: Record<string, string> = {
-  BEGINNER: 'Beginner',
-  INTERMEDIATE: 'Intermediate',
-  ADVANCED: 'Advanced',
-  ALL_LEVELS: 'All levels',
-}
-
 export default function MusicianCard({ musician }: { musician: MusicianSummary }) {
   return (
     <Link
@@ -31,9 +24,6 @@ export default function MusicianCard({ musician }: { musician: MusicianSummary }
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2 flex-wrap">
           <h3 className="font-semibold text-primary">{musician.name}</h3>
-          <span className="text-xs bg-muted text-secondary rounded-full px-2 py-0.5">
-            {SKILL_LABELS[musician.skillLevel] ?? musician.skillLevel}
-          </span>
         </div>
 
         {musician.city && (

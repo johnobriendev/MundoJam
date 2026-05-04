@@ -1,4 +1,4 @@
-import { PrismaClient, SkillLevel, RecurrenceType, RsvpStatus } from '@prisma/client'
+import { PrismaClient, RecurrenceType, RsvpStatus } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
@@ -11,7 +11,6 @@ const USERS = [
     lat: 19.4326,
     lng: -99.1332,
     bio: 'Bassist and composer. Loves latin jazz and funk.',
-    skillLevel: SkillLevel.ADVANCED,
     instruments: ['Bass', 'Upright Bass'],
     genres: ['Jazz', 'Funk', 'Latin'],
   },
@@ -22,7 +21,6 @@ const USERS = [
     lat: 41.3851,
     lng: 2.1734,
     bio: 'Pianist and singer-songwriter exploring flamenco fusion.',
-    skillLevel: SkillLevel.INTERMEDIATE,
     instruments: ['Piano', 'Keyboard', 'Voice'],
     genres: ['Flamenco', 'Pop', 'Jazz'],
   },
@@ -33,7 +31,6 @@ const USERS = [
     lat: 41.9028,
     lng: 12.4964,
     bio: 'Drummer with 10 years of live performance experience.',
-    skillLevel: SkillLevel.ADVANCED,
     instruments: ['Drums', 'Percussion'],
     genres: ['Rock', 'Jazz', 'Blues'],
   },
@@ -44,7 +41,6 @@ const USERS = [
     lat: 5.6037,
     lng: -0.187,
     bio: 'Guitarist and producer. Afrobeats and highlife are my roots.',
-    skillLevel: SkillLevel.INTERMEDIATE,
     instruments: ['Guitar', 'Electric Guitar'],
     genres: ['Afrobeats', 'Highlife', 'Funk'],
   },
@@ -55,7 +51,6 @@ const USERS = [
     lat: 35.6762,
     lng: 139.6503,
     bio: 'Saxophonist and occasional composer. City jazz is my thing.',
-    skillLevel: SkillLevel.ADVANCED,
     instruments: ['Saxophone', 'Flute'],
     genres: ['Jazz', 'Bossa Nova', 'Fusion'],
   },
@@ -66,7 +61,6 @@ const USERS = [
     lat: 44.4268,
     lng: 26.1025,
     bio: 'Fiddler who loves traditional music and crossover experiments.',
-    skillLevel: SkillLevel.BEGINNER,
     instruments: ['Violin', 'Fiddle'],
     genres: ['Folk', 'Classical', 'World'],
   },
@@ -214,7 +208,6 @@ async function main() {
         lat: u.lat,
         lng: u.lng,
         bio: u.bio,
-        skillLevel: u.skillLevel,
         isDiscoverable: true,
         instruments: {
           create: u.instruments.map((instrument) => ({ instrument })),

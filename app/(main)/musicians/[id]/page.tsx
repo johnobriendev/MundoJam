@@ -6,13 +6,6 @@ import { getCurrentUser } from '@/lib/session'
 import { isFollowing } from '@/lib/users/followUser'
 import { FollowButton } from '@/components/musicians/FollowButton'
 
-const SKILL_LABELS: Record<string, string> = {
-  BEGINNER: 'Beginner',
-  INTERMEDIATE: 'Intermediate',
-  ADVANCED: 'Advanced',
-  ALL_LEVELS: 'All levels',
-}
-
 export default async function MusicianProfilePage({
   params,
 }: {
@@ -60,9 +53,6 @@ export default async function MusicianProfilePage({
             )}
           </div>
           {user.city && <p className="text-secondary mt-0.5">{user.city}</p>}
-          <span className="inline-block mt-1 text-xs bg-muted text-secondary rounded-full px-2 py-0.5">
-            {SKILL_LABELS[user.skillLevel] ?? user.skillLevel}
-          </span>
         </div>
       </div>
 

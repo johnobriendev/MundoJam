@@ -9,13 +9,6 @@ import type { UserProfile } from '@/lib/users/getUser'
 const STANDARD_GENRES = GENRES.filter((g) => g !== 'Other')
 const STANDARD_INSTRUMENTS = INSTRUMENTS.filter((i) => i !== 'Other')
 
-const SKILL_LABELS: Record<string, string> = {
-  BEGINNER: 'Beginner',
-  INTERMEDIATE: 'Intermediate',
-  ADVANCED: 'Advanced',
-  ALL_LEVELS: 'All levels',
-}
-
 function fieldError(errors: Record<string, string[]> | undefined, key: string) {
   return errors?.[key]?.[0]
 }
@@ -57,7 +50,6 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
 
   const [selectedInstruments, setSelectedInstruments] = useState<Set<string>>(initialInstruments)
   const [selectedGenres, setSelectedGenres] = useState<Set<string>>(initialGenres)
-  const [skillLevel, setSkillLevel] = useState(profile.skillLevel)
   const [isDiscoverable, setIsDiscoverable] = useState(profile.isDiscoverable)
   const [removeAvatar, setRemoveAvatar] = useState(false)
   const [avatarTypeError, setAvatarTypeError] = useState(false)
@@ -205,26 +197,6 @@ export function ProfileForm({ profile }: { profile: UserProfile }) {
         {fieldError(errors, 'city') && (
           <p className="text-xs text-red-600 mt-1">{fieldError(errors, 'city')}</p>
         )}
-      </div>
-
-      {/* Skill level */}
-      <div>
-        <p className="block text-sm font-medium text-primary mb-2">Skill level</p>
-        <div className="flex flex-wrap gap-4">
-          {(['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'ALL_LEVELS'] as const).map((level) => (
-            <label key={level} className="flex items-center gap-2 text-sm cursor-pointer">
-              <input
-                type="radio"
-                name="skillLevel"
-                value={level}
-                checked={skillLevel === level}
-                onChange={() => setSkillLevel(level)}
-                className="text-accent focus:ring-accent"
-              />
-              {SKILL_LABELS[level]}
-            </label>
-          ))}
-        </div>
       </div>
 
       {/* Instruments */}

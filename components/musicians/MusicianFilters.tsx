@@ -5,21 +5,12 @@ import { useCallback } from 'react'
 import { GENRES } from '@/constants/genres'
 import { INSTRUMENTS } from '@/constants/instruments'
 
-const SKILL_OPTIONS = [
-  { value: '', label: 'Any level' },
-  { value: 'BEGINNER', label: 'Beginner' },
-  { value: 'INTERMEDIATE', label: 'Intermediate' },
-  { value: 'ADVANCED', label: 'Advanced' },
-  { value: 'ALL_LEVELS', label: 'All levels' },
-]
-
 export default function MusicianFilters() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
 
   const city = searchParams.get('city') ?? ''
-  const skillLevel = searchParams.get('skillLevel') ?? ''
   const instruments = searchParams.getAll('instrument')
   const genres = searchParams.getAll('genre')
 
@@ -46,7 +37,7 @@ export default function MusicianFilters() {
     push({ [key]: next })
   }
 
-  const hasFilters = city || skillLevel || instruments.length > 0 || genres.length > 0
+  const hasFilters = city || instruments.length > 0 || genres.length > 0
 
   const chipClass = (active: boolean) =>
     `text-xs rounded-full px-2 py-0.5 border transition-colors cursor-pointer ${
@@ -82,22 +73,6 @@ export default function MusicianFilters() {
             if (e.key === 'Enter') push({ city: (e.target as HTMLInputElement).value })
           }}
         />
-      </div>
-
-      {/* Skill level */}
-      <div>
-        <label className="block text-xs font-medium text-primary mb-1">Skill level</label>
-        <select
-          value={skillLevel}
-          onChange={(e) => push({ skillLevel: e.target.value })}
-          className="w-full border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-accent"
-        >
-          {SKILL_OPTIONS.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
       </div>
 
       {/* Instruments */}

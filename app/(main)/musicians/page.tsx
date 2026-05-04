@@ -18,7 +18,6 @@ export default async function MusiciansPage({ searchParams }: { searchParams: Se
 
   const musicians = await getMusicians({
     city: typeof params.city === 'string' ? params.city : undefined,
-    skillLevel: typeof params.skillLevel === 'string' ? params.skillLevel : undefined,
     instruments: toArray(params.instrument),
     genres: toArray(params.genre),
   })

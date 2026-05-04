@@ -8,7 +8,6 @@ export interface UpdateProfileInput {
   city?: string
   lat?: number
   lng?: number
-  skillLevel: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'ALL_LEVELS'
   isDiscoverable: boolean
   instruments: string[]
   genres: string[]
